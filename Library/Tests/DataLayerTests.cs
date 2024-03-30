@@ -79,4 +79,39 @@ public class DataLayerTests
 
         Assert.ThrowsException<Exception>(() => dataRepository.GetProduct("For sure not even a valid guid"));
     }
+
+    [TestMethod]
+    public void StatusTests()
+    {
+        IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
+        int quantity = 10;
+        DateTime date = new DateTime(2022, 1, 1);
+        double price = 100.0;
+
+        IStatus status = new Status(product, quantity, date, price);
+
+        Assert.AreEqual(product, status.Product);
+        Assert.AreEqual(quantity, status.Quantity);
+        Assert.AreEqual(date, status.Date);
+        Assert.AreEqual(price, status.Price);
+    }
+
+    [TestMethod]
+    public void EventTests()
+    {
+        IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
+        DateTime EventDate = new DateTime(2022, 1, 1);
+
+        IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
+        int quantity = 10;
+        DateTime StatusDate = new DateTime(2020, 1, 1);
+        double price = 100.0;
+        IStatus status = new Status(product, quantity, StatusDate, price);
+
+        IEvent myEvent = new Event(user, status, EventDate);
+
+        Assert.AreEqual(user, myEvent.User);
+        Assert.AreEqual(status, myEvent.Status);
+        Assert.AreEqual(EventDate, myEvent.Date);
+    }
 }
