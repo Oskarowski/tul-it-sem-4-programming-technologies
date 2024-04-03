@@ -1,6 +1,6 @@
 namespace DataLayer.API
 {
-    public interface IStatus
+    public interface IState
     {
         IProduct Product { get; set; }
         int Quantity { get; set; }
