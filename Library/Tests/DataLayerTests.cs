@@ -81,19 +81,19 @@ public class DataLayerTests
     }
 
     [TestMethod]
-    public void StatusTests()
+    public void StateTests()
     {
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
         int quantity = 10;
         DateTime date = new DateTime(2022, 1, 1);
         double price = 100.0;
 
-        IStatus status = new Status(product, quantity, date, price);
+        IState state = new State(product, quantity, date, price);
 
-        Assert.AreEqual(product, status.Product);
-        Assert.AreEqual(quantity, status.Quantity);
-        Assert.AreEqual(date, status.Date);
-        Assert.AreEqual(price, status.Price);
+        Assert.AreEqual(product, state.Product);
+        Assert.AreEqual(quantity, state.Quantity);
+        Assert.AreEqual(date, state.Date);
+        Assert.AreEqual(price, state.Price);
     }
 
     [TestMethod]
@@ -104,14 +104,14 @@ public class DataLayerTests
 
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
         int quantity = 10;
-        DateTime StatusDate = new DateTime(2020, 1, 1);
+        DateTime StateDate = new DateTime(2020, 1, 1);
         double price = 100.0;
-        IStatus status = new Status(product, quantity, StatusDate, price);
+        IState state = new State(product, quantity, StateDate, price);
 
-        IEvent myEvent = new Event(user, status, EventDate);
+        IEvent myEvent = new Event(user, state, EventDate);
 
         Assert.AreEqual(user, myEvent.User);
-        Assert.AreEqual(status, myEvent.Status);
+        Assert.AreEqual(state, myEvent.State);
         Assert.AreEqual(EventDate, myEvent.Date);
     }
 }

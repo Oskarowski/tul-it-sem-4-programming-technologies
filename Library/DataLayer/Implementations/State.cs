@@ -2,9 +2,9 @@ using DataLayer.API;
 
 namespace DataLayer.Implementations
 {
-    public class Status : IStatus
+    public class State : IState
     {
-        public Status(IProduct product, int quantity, DateTime date, double price)
+        public State(IProduct product, int quantity, DateTime date, double price)
         {
             Product = product;
             Quantity = quantity;
