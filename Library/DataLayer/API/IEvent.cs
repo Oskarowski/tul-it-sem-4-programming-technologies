@@ -5,5 +5,6 @@ namespace DataLayer.API
         IUser User { get; set; }
         IState State { get; set; }
         DateTime Date { get; set; }
+        string Guid { get; }
     }
 }

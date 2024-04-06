@@ -6,5 +6,6 @@ namespace DataLayer.API
         int Quantity { get; set; }
         DateTime Date { get; set; }
         double Price { get; set; }
+        string Guid { get; }
     }
 }
