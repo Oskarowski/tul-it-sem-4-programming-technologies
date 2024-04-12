@@ -11,10 +11,6 @@ namespace LogicLayer.Implementations
         }
 
         #region User
-        public void AddUser(IUser user)
-        {
-            DataRepository.AddUser(user);
-        }
         public IUser GetUser(string guid)
         {
             return DataRepository.GetUser(guid);
@@ -26,10 +22,6 @@ namespace LogicLayer.Implementations
         #endregion
 
         #region Product
-        public void AddProduct(IProduct product)
-        {
-            DataRepository.AddProduct(product);
-        }
         public IProduct GetProduct(string guid)
         {
             return DataRepository.GetProduct(guid);
@@ -41,14 +33,19 @@ namespace LogicLayer.Implementations
         #endregion
 
         #region State
-        public void AddState(IState state)
-        {
-            DataRepository.AddState(state);
-        }
         public IState GetState(string guid)
         {
             return DataRepository.GetState(guid);
         }
+        public List<IState> GetAllStates()
+        {
+            return DataRepository.GetAllStates();
+        }
         #endregion
+
+        public List<IEvent> getEventsByUser(string userGuid)
+        {
+            return DataRepository.getEventsByUser(userGuid);
+        }
     }
 }

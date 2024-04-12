@@ -9,12 +9,12 @@ namespace LogicLayer.API
         IEvent FindEvent(string guid);
         #endregion
 
-        #region Add
-        void AddProduct(IProduct product);
-        void AddState(IState state);
-        void AddUser(IUser user);
-        void AddEvent(IEvent @event);
-        #endregion
+        // #region Add
+        // void AddProduct(IProduct product);
+        // void AddState(IState state);
+        // void AddUser(IUser user);
+        // void AddEvent(IEvent @event);
+        // #endregion
 
         #region Remove
         void RemoveProduct(string guid);
@@ -29,6 +29,13 @@ namespace LogicLayer.API
         IEvent CreateReturn(IUser user, IState state, DateTime date, string guid);
         IUser CreateUser(string guid, string firstName, string lastName, string email, int phoneNumber);
         IState CreateState(IProduct product, int quantity, DateTime date, double price, string guid);
+        #endregion
+
+        #region GetBy
+        List<IEvent> GetEventsByUser(string userGuid);
+        List<IEvent> GetEventsByProduct(string productGuid);
+        IProduct GetProductByState(string stateGuid);
+        List<IEvent> GetEventsByState(string stateGuid);
         #endregion
     }
 }

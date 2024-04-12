@@ -48,5 +48,41 @@ namespace DataLayer.Implementations
             return product;
 
         }
+
+        // -----> Event methods
+        public void AddEvent(IEvent @event)
+        {
+            _dataContext.Events.Add(@event);
+        }
+
+        public List<IEvent> GetAllEvents()
+        {
+            return _dataContext.Events;
+        }
+
+        public IEvent GetEvent(string guid)
+        {
+            IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
+
+            return @event;
+        }
+
+        // -----> State methods
+        public void AddState(IState state)
+        {
+            _dataContext.States.Add(state);
+        }
+
+        public List<IState> GetAllStates()
+        {
+            return _dataContext.States;
+        }
+
+        public IState GetState(string guid)
+        {
+            IState state = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
+
+            return state;
+        }
     }
 }
