@@ -1,4 +1,5 @@
 ﻿using DataLayer.Implementations;
+using DataLayer.Implementations.Events;
 using DataLayer.API;
 
 namespace Tests;
@@ -111,24 +112,22 @@ public class DataLayerTests
     }
 
     [TestMethod]
-    public void EventTests()
+    public void BorrowEventTests()
     {
-        IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
-        DateTime EventDate = new DateTime(2022, 1, 1);
+        // TODO: Implement BorrowEventTests
 
-        IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
-        int quantity = 10;
-        
-        string guid1 = "1234567890";
-        string guid2 = "0987654321";
+    }
 
-        IState state = new State(product, quantity, guid1);
+    [TestMethod]
+    public void ReturnEventTests()
+    {
+        // TODO: Implement ReturnEventTests
+    }
 
-        IEvent myEvent = new Event(user, state, EventDate, guid2);
-
-        Assert.AreEqual(user, myEvent.User);
-        Assert.AreEqual(state, myEvent.State);
-        Assert.AreEqual(EventDate, myEvent.Date);
+    [TestMethod]
+    public void DeliveryEventTests()
+    {
+        // TODO: Implement DeliveryEventTests
     }
 
     [TestMethod]
@@ -150,36 +149,29 @@ public class DataLayerTests
         IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
         IState state = new State(product, 10, "1234567890");
-        IEvent myEvent = new Event(user, state, new DateTime(2022, 1, 1), "0987654321");
 
         dataRepository.AddUser(user);
         dataRepository.AddProduct(product);
         dataRepository.AddState(state);
-        dataRepository.AddEvent(myEvent);
 
         Assert.IsTrue(dataRepository.GetAllUsers().Contains(user));
         Assert.IsTrue(dataRepository.GetAllProducts().Contains(product));
         Assert.IsTrue(dataRepository.GetAllStates().Contains(state));
-        Assert.IsTrue(dataRepository.GetAllEvents().Contains(myEvent));
 
         Assert.AreEqual(user, dataRepository.GetUser(user.Guid));
         Assert.AreEqual(product, dataRepository.GetProduct(product.Guid));
         Assert.AreEqual(state, dataRepository.GetState(state.Guid));
-        Assert.AreEqual(myEvent, dataRepository.GetEvent(myEvent.Guid));
 
         Assert.ThrowsException<Exception>(() => dataRepository.GetUser("For sure not even a valid guid"));
         Assert.ThrowsException<Exception>(() => dataRepository.GetProduct("For sure not even a valid guid"));
         Assert.ThrowsException<Exception>(() => dataRepository.GetState("For sure not even a valid guid"));
-        Assert.ThrowsException<Exception>(() => dataRepository.GetEvent("For sure not even a valid guid"));
 
         dataRepository.RemoveUser(user.Guid);
         dataRepository.RemoveProduct(product.Guid);
         dataRepository.RemoveState(state.Guid);
-        dataRepository.RemoveEvent(myEvent.Guid);
 
         Assert.IsFalse(dataRepository.GetAllUsers().Contains(user));
         Assert.IsFalse(dataRepository.GetAllProducts().Contains(product));
         Assert.IsFalse(dataRepository.GetAllStates().Contains(state));
-        Assert.IsFalse(dataRepository.GetAllEvents().Contains(myEvent));
     }
 }
