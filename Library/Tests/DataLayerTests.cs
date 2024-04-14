@@ -107,11 +107,12 @@ public class DataLayerTests
         int quantity = 10;
         DateTime StateDate = new DateTime(2020, 1, 1);
         double price = 100.0;
-        string guid = "1234567890";
+        string guid1 = "1234567890";
+        string guid2 = "0987654321";
 
-        IState state = new State(product, quantity, StateDate, price, guid);
+        IState state = new State(product, quantity, StateDate, price, guid1);
 
-        IEvent myEvent = new Event(user, state, EventDate);
+        IEvent myEvent = new Event(user, state, EventDate, guid2);
 
         Assert.AreEqual(user, myEvent.User);
         Assert.AreEqual(state, myEvent.State);

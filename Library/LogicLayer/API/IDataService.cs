@@ -1,3 +1,5 @@
+using DataLayer.API;
+
 namespace LogicLayer.API
 {
     public interface IDataService
@@ -23,13 +25,13 @@ namespace LogicLayer.API
         void RemoveEvent(string guid);
         #endregion
 
-        #region Create
-        IProduct CreateBook(string name, string guid, double price, string author, string publisher, int pages, DateTime publicationDate);
-        IEvent CreateBorrow(IUser user, IState state, DateTime date, string guid);
-        IEvent CreateReturn(IUser user, IState state, DateTime date, string guid);
-        IUser CreateUser(string guid, string firstName, string lastName, string email, int phoneNumber);
-        IState CreateState(IProduct product, int quantity, DateTime date, double price, string guid);
-        #endregion
+        // #region Create
+        // IProduct CreateBook(string name, string guid, double price, string author, string publisher, int pages, DateTime publicationDate);
+        // IEvent CreateBorrow(IUser user, IState state, DateTime date, string guid);
+        // IEvent CreateReturn(IUser user, IState state, DateTime date, string guid);
+        // IUser CreateUser(string guid, string firstName, string lastName, string email, int phoneNumber);
+        // IState CreateState(IProduct product, int quantity, DateTime date, double price, string guid);
+        // #endregion
 
         #region GetBy
         List<IEvent> GetEventsByUser(string userGuid);
