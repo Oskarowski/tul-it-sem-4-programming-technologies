@@ -23,6 +23,8 @@ namespace DataLayer.API
         IProduct GetProduct(string guid);
         List<IProduct> GetAllProducts();
         IProduct GetProductByState(string stateGuid);
+        bool DoesProductExist(string guid);
+
         void RemoveProduct(string guid);
         #endregion
 

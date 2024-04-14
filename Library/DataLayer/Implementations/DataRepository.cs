@@ -76,6 +76,10 @@ namespace DataLayer.Implementations
 
             return product;
         }
+        public bool DoesProductExist(string guid)
+        {
+            return _dataContext.Products.Exists(e => e.Guid == guid);
+        }
         public void RemoveProduct(string guid)
         {
             IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
