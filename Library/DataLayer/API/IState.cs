@@ -4,8 +4,7 @@ namespace DataLayer.API
     {
         IProduct Product { get; set; }
         int Quantity { get; set; }
-        DateTime Date { get; set; }
-        double Price { get; set; }
+        DateTime LastUpdatedDate { get; }
         string Guid { get; }
     }
 }

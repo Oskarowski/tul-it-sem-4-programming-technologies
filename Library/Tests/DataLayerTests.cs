@@ -97,18 +97,17 @@ public class DataLayerTests
     [TestMethod]
     public void StateTests()
     {
-        IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
-        int quantity = 10;
-        DateTime date = new DateTime(2022, 1, 1);
-        double price = 100.0;
-        string guid = "1234567890";
+        IProduct bookProduct = new Book("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 100, new DateTime(1951, 7, 16));
 
-        IState state = new State(product, quantity, date, price, guid);
+        const int amountOfBooks = 10;
+        double wholeStockPrice = bookProduct.Price * amountOfBooks;
 
-        Assert.AreEqual(product, state.Product);
-        Assert.AreEqual(quantity, state.Quantity);
-        Assert.AreEqual(date, state.Date);
-        Assert.AreEqual(price, state.Price);
+        IState bookProductState = new State(bookProduct, amountOfBooks);
+
+        Assert.AreEqual(bookProduct, bookProductState.Product);
+        Assert.AreEqual(amountOfBooks, bookProductState.Quantity);
+        Assert.IsTrue((DateTime.Now - bookProductState.LastUpdatedDate).TotalSeconds < 1);
+        Assert.AreEqual(wholeStockPrice, bookProductState.Product.Price * bookProductState.Quantity);
     }
 
     [TestMethod]
@@ -119,12 +118,11 @@ public class DataLayerTests
 
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
         int quantity = 10;
-        DateTime StateDate = new DateTime(2020, 1, 1);
-        double price = 100.0;
+        
         string guid1 = "1234567890";
         string guid2 = "0987654321";
 
-        IState state = new State(product, quantity, StateDate, price, guid1);
+        IState state = new State(product, quantity, guid1);
 
         IEvent myEvent = new Event(user, state, EventDate, guid2);
 
@@ -151,7 +149,7 @@ public class DataLayerTests
 
         IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
-        IState state = new State(product, 10, new DateTime(2022, 1, 1), 100.0, "1234567890");
+        IState state = new State(product, 10, "1234567890");
         IEvent myEvent = new Event(user, state, new DateTime(2022, 1, 1), "0987654321");
 
         dataRepository.AddUser(user);

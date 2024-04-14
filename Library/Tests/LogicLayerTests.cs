@@ -60,7 +60,7 @@ public class LogicLayerTests
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
 
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
         dataRepository.AddState(state);
@@ -88,7 +88,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IEvent @event = new Event(user, state, DateTime.Now, "1111111111");
 
@@ -118,7 +118,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IEvent @event = new Event(user, state, DateTime.Now, "1111111111");
 
@@ -147,7 +147,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IEvent @event = new Event(user, state, DateTime.Now, "1111111111");
 
@@ -169,7 +169,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
         dataRepository.AddState(state);
@@ -196,7 +196,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IEvent @event = new Event(user, state, DateTime.Now, "1111111111");
 
@@ -259,7 +259,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
         dataRepository.AddState(state);
@@ -288,7 +288,7 @@ public class LogicLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
         IProduct product = new Book(name, price, author, publisher, pages, publicationDate);
-        IState state = new State(product, 20, DateTime.Now, 100.0, "1234567890");
+        IState state = new State(product, 20, "1234567890");
 
         IEvent @event = new Event(user, state, DateTime.Now, "1111111111");
 
