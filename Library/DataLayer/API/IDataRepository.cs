@@ -14,6 +14,8 @@ namespace DataLayer.API
         IUser GetUser(string guid);
         List<IUser> GetAllUsers();
         void RemoveUser(string guid);
+        bool DoesUserExist(string guid);
+        void UpdateUser(IUser updateUser);
         #endregion
 
         #region Product

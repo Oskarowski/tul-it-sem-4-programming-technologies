@@ -46,6 +46,20 @@ public class DataLayerTests
 
         Assert.ThrowsException<Exception>(() => dataRepository.GetUser("For sure not even a valid guid"));
 
+        Assert.AreEqual(user, dataRepository.GetUser(user.Guid));
+
+        Assert.IsTrue(dataRepository.DoesUserExist(user.Guid));
+        Assert.IsFalse(dataRepository.DoesUserExist("For sure not even a valid guid"));
+
+        user.FirstName = "New Name is Jane";
+
+        dataRepository.UpdateUser(user);
+        user = dataRepository.GetUser(user.Guid);
+
+        Assert.AreEqual("New Name is Jane", user.FirstName);
+
+        dataRepository.RemoveUser(user.Guid);
+        Assert.AreEqual(0, dataRepository.GetAllUsers().Count);
 
     }
 

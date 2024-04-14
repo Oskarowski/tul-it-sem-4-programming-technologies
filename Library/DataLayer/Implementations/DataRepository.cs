@@ -12,14 +12,10 @@ namespace DataLayer.Implementations
             _dataContext = dataContext;
         }
 
-        // -----> User methods
+        #region User
         public void AddUser(IUser user)
         {
             _dataContext.Users.Add(user);
-        }
-        public List<IUser> GetAllUsers()
-        {
-            return _dataContext.Users;
         }
         public IUser GetUser(string guid)
         {
@@ -27,12 +23,33 @@ namespace DataLayer.Implementations
 
             return user;
         }
+        public List<IUser> GetAllUsers()
+        {
+            return _dataContext.Users;
+        }
         public void RemoveUser(string guid)
         {
             IUser user = _dataContext.Users.FirstOrDefault(user => user.Guid == guid) ?? throw new Exception("User does not exist");
 
             _dataContext.Users.Remove(user);
         }
+        public bool DoesUserExist(string guid)
+        {
+            return _dataContext.Users.Exists(e => e.Guid == guid);
+        }
+        public void UpdateUser(IUser updateUser)
+        {
+            IUser? userToBeUpdated = _dataContext.Users.FirstOrDefault(u => u.Guid == updateUser.Guid);
+
+            if (userToBeUpdated == null)
+            {
+                throw new Exception("Cannot update user that does not exist");
+            }
+
+            userToBeUpdated = updateUser;
+        }
+            
+        #endregion
 
         // -----> Product methods
         public void AddProduct(IProduct product)
