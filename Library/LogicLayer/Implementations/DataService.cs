@@ -1,4 +1,5 @@
 using DataLayer.API;
+using DataLayer.Implementations.Events;
 using LogicLayer.API;
 
 namespace LogicLayer.Implementations
@@ -10,109 +11,73 @@ namespace LogicLayer.Implementations
         {
             _dataRepository = dataRepository;
         }
+        public void DeliverProduct(IUser user, IState state, int amount)
+        {
 
-        #region Get
-        public IUser GetUser(string guid)
-        {
-            return _dataRepository.GetUser(guid);
-        }
-        public IProduct GetProduct(string guid)
-        {
-            return _dataRepository.GetProduct(guid);
-        }
-        public IState GetState(string guid)
-        {
-            return _dataRepository.GetState(guid);
-        }
-        public IEvent GetEvent(string guid)
-        {
-            return _dataRepository.GetEvent(guid);
-        }
-        #endregion
+            // Check if such product exists
+            if (!_dataRepository.DoesProductExist(state.Product.Guid))
+            {
+                throw new Exception("Product not found");
+            }
 
-        #region GetAll
-        public List<IUser> GetAllUsers()
-        {
-            return _dataRepository.GetAllUsers();
-        }
-        public List<IProduct> GetAllProducts()
-        {
-            return _dataRepository.GetAllProducts();
-        }
-        public List<IState> GetAllStates()
-        {
-            return _dataRepository.GetAllStates();
-        }
-        public List<IEvent> GetAllEvents()
-        {
-            return _dataRepository.GetAllEvents();
-        }
-        #endregion
+            if (!_dataRepository.DoesUserExist(user.Guid))
+            {
+                throw new Exception("User not found");
+            }
 
-        #region GetBy
-        public List<IEvent> GetEventsByUser(string userGuid)
-        {
-            return _dataRepository.GetEventsByUser(userGuid);
-        }
-        public List<IEvent> GetEventsByProduct(string productGuid)
-        {
-            return _dataRepository.GetEventsByProduct(productGuid);
-        }
-        public IProduct GetProductByState(string stateGuid)
-        {
-            return _dataRepository.GetProductByState(stateGuid);
-        }
-        public List<IEvent> GetEventsByState(string stateGuid)
-        {
-            return _dataRepository.GetEventsByState(stateGuid);
-        }
-        #endregion
+            try
+            {
+                _dataRepository.AddEvent(new Delivery(user, state, amount));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Unable to perform deliver: " + e.Message, e); ;
+            }
 
-        // #region Create
-        // public IUser CreateUser(string guid, string firstName, string lastName, string email, int phoneNumber)
-        // {
-        //     IUser user = new User(guid, firstName, lastName, email, phoneNumber);
-        //     return _dataRepository.AddUser(new User(guid, firstName, lastName, email, phoneNumber));
-        // }
-
-        // public IProduct CreateBook(string name, string guid, double price, string author, string publisher, int pages, DateTime publicationDate)
-        // {
-        //     return _dataRepository.CreateBook(name, guid, price, author, publisher, pages, publicationDate);
-        // }
-
-        // public IState CreateState(IProduct product, int quantity, DateTime date, double price, string guid)
-        // {
-        //     return _dataRepository.CreateState(product, quantity, date, price, guid);
-        // }
-
-        // public IEvent CreateBorrow(IUser user, IState state, DateTime date, string guid)
-        // {
-        //     return _dataRepository.CreateBorrow(user, state, date, guid);
-        // }
-
-        // public IEvent CreateReturn(IUser user, IState state, DateTime date, string guid)
-        // {
-        //     return _dataRepository.CreateReturn(user, state, date, guid);
-        // }
-        // #endregion
-
-        #region Remove
-        public void RemoveUser(string guid)
-        {
-            _dataRepository.RemoveUser(guid);
         }
-        public void RemoveProduct(string guid)
+
+        public void BorrowProduct(IUser user, IState state)
         {
-            _dataRepository.RemoveProduct(guid);
+            // Check if such product exists
+            if (!_dataRepository.DoesProductExist(state.Product.Guid))
+            {
+                throw new Exception("Product not found");
+            }
+            if (!_dataRepository.DoesUserExist(user.Guid))
+            {
+                throw new Exception("User not found");
+            }
+
+            try
+            {
+                _dataRepository.AddEvent(new Borrow(user, state));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Unable to perform borrow: " + e.Message, e); ;
+            }
         }
-        public void RemoveState(string guid)
+        public void ReturnProduct(IUser user, IState state)
         {
-            _dataRepository.RemoveState(guid);
+            // Check if such product exists
+            if (!_dataRepository.DoesProductExist(state.Product.Guid))
+            {
+                throw new Exception("Product not found");
+            }
+            if (!_dataRepository.DoesUserExist(user.Guid))
+            {
+                throw new Exception("User not found");
+            }
+
+            try
+            {
+                _dataRepository.AddEvent(new Return(user, state));
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Unable to perform return: " + e.Message, e); ;
+            }
         }
-        public void RemoveEvent(string guid)
-        {
-            _dataRepository.RemoveEvent(guid);
-        }
-        #endregion
+
     }
 }
