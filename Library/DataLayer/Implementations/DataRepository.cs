@@ -51,20 +51,20 @@ namespace DataLayer.Implementations
             
         #endregion
 
-        // -----> Product methods
+        #region Product
         public void AddProduct(IProduct product)
         {
             _dataContext.Products.Add(product);
-        }
-        public List<IProduct> GetAllProducts()
-        {
-            return _dataContext.Products;
         }
         public IProduct GetProduct(string guid)
         {
             IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
 
             return product;
+        }
+        public List<IProduct> GetAllProducts()
+        {
+            return _dataContext.Products;
         }
         public IProduct GetProductByState(string stateGuid)
         {
@@ -82,21 +82,22 @@ namespace DataLayer.Implementations
 
             _dataContext.Products.Remove(product);
         }
+        #endregion
 
-        // -----> Event methods
+        #region Event
         public void AddEvent(IEvent @event)
         {
             _dataContext.Events.Add(@event);
-        }
-        public List<IEvent> GetAllEvents()
-        {
-            return _dataContext.Events;
         }
         public IEvent GetEvent(string guid)
         {
             IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
 
             return @event;
+        }
+        public List<IEvent> GetAllEvents()
+        {
+            return _dataContext.Events;
         }
         public List<IEvent> GetEventsByUser(string userGuid)
         {
@@ -122,8 +123,9 @@ namespace DataLayer.Implementations
 
             _dataContext.Events.Remove(@event);
         }
+        #endregion
 
-        // -----> State methods
+        #region State
         public void AddState(IState state)
         {
             _dataContext.States.Add(state);
@@ -144,5 +146,6 @@ namespace DataLayer.Implementations
 
             _dataContext.States.Remove(state);
         }
+        #endregion
     }
 }
