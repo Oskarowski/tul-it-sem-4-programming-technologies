@@ -2,11 +2,11 @@ namespace LogicLayer.API
 {
     public interface IDataService
     {
-        #region Find
-        IProduct FindProduct(string guid);
-        IState FindState(string guid);
-        IUser FindUser(string guid);
-        IEvent FindEvent(string guid);
+        #region Get
+        IProduct GetProduct(string guid);
+        IState GetState(string guid);
+        IUser GetUser(string guid);
+        IEvent GetEvent(string guid);
         #endregion
 
         // #region Add
@@ -36,6 +36,13 @@ namespace LogicLayer.API
         List<IEvent> GetEventsByProduct(string productGuid);
         IProduct GetProductByState(string stateGuid);
         List<IEvent> GetEventsByState(string stateGuid);
+        #endregion
+
+        #region GetAll
+        List<IProduct> GetAllProducts();
+        List<IState> GetAllStates();
+        List<IUser> GetAllUsers();
+        List<IEvent> GetAllEvents();
         #endregion
     }
 }

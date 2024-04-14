@@ -46,7 +46,17 @@ namespace DataLayer.Implementations
             IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
 
             return product;
+        }
 
+        public IProduct GetProductByState(string stateGuid)
+        {
+            IProduct? product = _dataContext.States.FirstOrDefault(state => state.Guid == stateGuid)?.Product;
+            if (product == null)
+            {
+                throw new Exception("Product does not exist");
+            }
+
+            return product;
         }
 
         // -----> Event methods
@@ -65,6 +75,27 @@ namespace DataLayer.Implementations
             IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
 
             return @event;
+        }
+
+        public List<IEvent> GetEventsByUser(string userGuid)
+        {
+            List<IEvent> events = _dataContext.Events.Where(@event => @event.User.Guid == userGuid).ToList();
+
+            return events;
+        }
+
+        public List<IEvent> GetEventsByProduct(string productGuid)
+        {
+            List<IEvent> events = _dataContext.Events.Where(@event => @event.State.Product.Guid == productGuid).ToList();
+
+            return events;
+        }
+
+        public List<IEvent> GetEventsByState(string stateGuid)
+        {
+            List<IEvent> events = _dataContext.Events.Where(@event => @event.State.Guid == stateGuid).ToList();
+
+            return events;
         }
 
         // -----> State methods

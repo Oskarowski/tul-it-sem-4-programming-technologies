@@ -19,12 +19,16 @@ namespace DataLayer.API
         void AddProduct(IProduct product);
         IProduct GetProduct(string guid);
         List<IProduct> GetAllProducts();
+        IProduct GetProductByState(string stateGuid);
         #endregion
 
         #region Event
         void AddEvent(IEvent @event);
         IEvent GetEvent(string guid);
         List<IEvent> GetAllEvents();
+        List<IEvent> GetEventsByUser(string userGuid);
+        List<IEvent> GetEventsByProduct(string productGuid);
+        List<IEvent> GetEventsByState(string stateGuid);
         #endregion
 
         #region State
