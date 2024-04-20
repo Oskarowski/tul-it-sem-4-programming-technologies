@@ -414,3 +414,5 @@ FodyWeavers.xsd
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+test_results.txt
