@@ -1,4 +1,6 @@
-namespace DataLayer.API
+using DataLayer.API;
+
+namespace Tests
 {
     public interface IDataFiller
     {
