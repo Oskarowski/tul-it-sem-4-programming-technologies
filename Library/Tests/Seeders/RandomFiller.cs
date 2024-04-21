@@ -40,7 +40,7 @@ namespace Tests
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // throw new Exception("Error", e);
                 }
