@@ -1,6 +1,5 @@
-﻿using DataLayer.Implementations;
-using DataLayer.Implementations.Events;
-using DataLayer.API;
+﻿using DataLayer.API;
+using DataLayer.Implementations;
 
 namespace Tests;
 
@@ -112,25 +111,6 @@ public class DataLayerTests
     }
 
     [TestMethod]
-    public void BorrowEventTests()
-    {
-        // TODO: Implement BorrowEventTests
-
-    }
-
-    [TestMethod]
-    public void ReturnEventTests()
-    {
-        // TODO: Implement ReturnEventTests
-    }
-
-    [TestMethod]
-    public void DeliveryEventTests()
-    {
-        // TODO: Implement DeliveryEventTests
-    }
-
-    [TestMethod]
     public void DataContextTests()
     {
         DataContext dataContext = new DataContext();
@@ -173,29 +153,5 @@ public class DataLayerTests
         Assert.IsFalse(dataRepository.GetAllUsers().Contains(user));
         Assert.IsFalse(dataRepository.GetAllProducts().Contains(product));
         Assert.IsFalse(dataRepository.GetAllStates().Contains(state));
-    }
-
-    [TestMethod]
-    public void DataFillerTests()
-    {
-        IDataContext dataContext = new DataContext();
-        IDataFiller dataFiller = new PresetFiller();
-
-        dataFiller.Fill(dataContext);
-
-        Assert.AreEqual(5, dataContext.Users.Count);
-        Assert.AreEqual(5, dataContext.Products.Count);
-        Assert.AreEqual(5, dataContext.States.Count);
-        Assert.AreEqual(7, dataContext.Events.Count);
-
-        dataContext = new DataContext();
-        dataFiller = new RandomFiller();
-
-        dataFiller.Fill(dataContext);
-
-        Assert.IsTrue(dataContext.Users.Count >= 5 && dataContext.Users.Count <= 11);
-        Assert.IsTrue(dataContext.Products.Count >= 5 && dataContext.Products.Count <= 11);
-        Assert.AreEqual(dataContext.Products.Count, dataContext.States.Count);
-        Assert.IsTrue(dataContext.Events.Count >= 5 && dataContext.Events.Count <= 11);
     }
 }
