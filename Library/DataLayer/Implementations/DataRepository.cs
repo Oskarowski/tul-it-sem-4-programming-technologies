@@ -7,9 +7,13 @@ namespace DataLayer.Implementations
         private IDataContext _dataContext;
 
         // Init the data context
-        public DataRepository(IDataContext dataContext)
+        private DataRepository(IDataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+        public static IDataRepository CreateDataRepository(IDataContext dataContext)
+        {
+            return new DataRepository(dataContext);
         }
 
         #region User

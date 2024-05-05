@@ -1,10 +1,11 @@
+using System.Dynamic;
 using DataLayer.API;
 
 namespace DataLayer.Implementations
 {
     public class Book : IBook
     {
-        public Book(string name, double price, string author, string publisher, int pages, DateTime publicationDate)
+        private Book(string name, double price, string author, string publisher, int pages, DateTime publicationDate)
         {
             Guid = System.Guid.NewGuid().ToString();
             Name = name;
@@ -14,6 +15,11 @@ namespace DataLayer.Implementations
             Pages = pages;
             PublicationDate = publicationDate;
         }
+        public static IBook CreateBook(string name, double price, string author, string publisher, int pages, DateTime publicationDate)
+        {
+            return new Book(name, price, author, publisher, pages, publicationDate);
+        }
+        
         public string Guid { get; }
         public string Name { get; set; }
         public double Price { get; set; }

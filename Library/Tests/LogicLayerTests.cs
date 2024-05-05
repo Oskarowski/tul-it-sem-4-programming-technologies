@@ -12,20 +12,20 @@ public class LogicLayerTests
     public void TestDeliverProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
-        var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
+        var testUser1 = User.CreateUser("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
         const int amountOfBooksOnStart = 5;
-        IProduct bookProduct1 = new Book("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
+        IProduct bookProduct1 = Book.CreateBook("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
 
-        var stateOfBookProduct1 = new State(bookProduct1, amountOfBooksOnStart);
+        var stateOfBookProduct1 = State.CreateState(bookProduct1, amountOfBooksOnStart);
 
         dataRepository.AddUser(testUser1);
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.CreateDataService(dataRepository);
 
         // Act
         const int amountOfBooksToDeliver = 5;
@@ -39,20 +39,20 @@ public class LogicLayerTests
     public void TestBorrowProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
-        var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
+        var testUser1 = User.CreateUser("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
         const int amountOfBooksOnStart = 5;
-        IProduct bookProduct1 = new Book("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
+        IProduct bookProduct1 = Book.CreateBook("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
 
-        var stateOfBookProduct1 = new State(bookProduct1, amountOfBooksOnStart);
+        var stateOfBookProduct1 = State.CreateState(bookProduct1, amountOfBooksOnStart);
 
         dataRepository.AddUser(testUser1);
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.CreateDataService(dataRepository);
 
         // Act
         dataService.BorrowProduct(testUser1, stateOfBookProduct1);
@@ -66,20 +66,20 @@ public class LogicLayerTests
     public void TestReturnProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
-        var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
+        var testUser1 = User.CreateUser("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
         const int amountOfBooksOnStart = 5;
-        IProduct bookProduct1 = new Book("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
+        IProduct bookProduct1 = Book.CreateBook("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 258, new DateTime(1951, 7, 16));
 
-        var stateOfBookProduct1 = new State(bookProduct1, amountOfBooksOnStart);
+        var stateOfBookProduct1 = State.CreateState(bookProduct1, amountOfBooksOnStart);
 
         dataRepository.AddUser(testUser1);
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.CreateDataService(dataRepository);
 
         dataService.BorrowProduct(testUser1, stateOfBookProduct1);
 

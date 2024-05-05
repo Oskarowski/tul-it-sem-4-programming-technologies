@@ -4,7 +4,7 @@ namespace DataLayer.Implementations.Events
 {
     public class Return : IEvent
     {
-        public Return(IUser user, IState state, string? guid = null)
+        private Return(IUser user, IState state, string? guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             User = user;
@@ -19,6 +19,10 @@ namespace DataLayer.Implementations.Events
 
             user.ProductsDic.Remove(state.Product.Guid);
             state.Quantity++;
+        }
+        public static IEvent CreateReturn(IUser user, IState state)
+        {
+            return new Return(user, state);
         }
         public string Guid { get; }
         public IUser User { get; }

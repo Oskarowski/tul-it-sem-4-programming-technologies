@@ -6,12 +6,16 @@ namespace DataLayer.Implementations
     {
         private int _quantity;
         private DateTime _lastUpdatedDate;
-        public State(IProduct product, int quantity = 0, string? guid = null)
+        private State(IProduct product, int quantity = 0, string? guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             Product = product;
             Quantity = quantity;
             _lastUpdatedDate = DateTime.Now;
+        }
+        public static IState CreateState(IProduct product, int quantity = 0, string? guid = null)
+        {
+            return new State(product, quantity, guid);
         }
         public IProduct Product { get; set; }
         public int Quantity 

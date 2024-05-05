@@ -1,8 +1,7 @@
-using DataLayer.API;
 using DataLayer.Implementations;
 using DataLayer.Implementations.Events;
 
-namespace Tests
+namespace DataLayer.API
 {
     public class RandomFiller : IDataFiller
     {
@@ -13,9 +12,9 @@ namespace Tests
 
             for (int i = 0; i < insertionsCount; i++)
             {
-                IUser user = new User(GetRandomString(6), GetRandomString(10), GetRandomEmail(), GetRandomNumber<double>(9), GetRandomPhoneNumber(), null);
-                IProduct product = new Book(GetRandomString(6), GetRandomNumber<double>(2), GetRandomString(6) + " " + GetRandomString(10), GetRandomString(6) + " " + GetRandomString(10), GetRandomNumber<int>(3), GetRandomDate());
-                IState state = new State(product, GetRandomNumber<int>(2) + 1);
+                IUser user = User.CreateUser(GetRandomString(6), GetRandomString(10), GetRandomEmail(), GetRandomNumber<double>(9), GetRandomPhoneNumber(), null);
+                IProduct product = Book.CreateBook(GetRandomString(6), GetRandomNumber<double>(2), GetRandomString(6) + " " + GetRandomString(10), GetRandomString(6) + " " + GetRandomString(10), GetRandomNumber<int>(3), GetRandomDate());
+                IState state = State.CreateState(product, GetRandomNumber<int>(2) + 1);
 
                 context.Users.Add(user);
                 context.Products.Add(product);
@@ -27,16 +26,16 @@ namespace Tests
                 {
                     if (happening <= 0.5)
                     {
-                        context.Events.Add(new Delivery(user, state, GetRandomNumber<int>(2) + 1));
+                        context.Events.Add(Delivery.CreateDelivery(user, state, GetRandomNumber<int>(2) + 1));
                     }
 
                     if (happening <= 0.75)
                     {
-                        context.Events.Add(new Borrow(user, state));
+                        context.Events.Add(Borrow.CreateBorrow(user, state));
 
                         if (happening <= 0.5)
                         {
-                            context.Events.Add(new Return(user, state));
+                            context.Events.Add(Return.CreateReturn(user, state));
                         }
                     }
                 }

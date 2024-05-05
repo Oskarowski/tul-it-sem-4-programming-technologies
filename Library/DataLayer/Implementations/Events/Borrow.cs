@@ -4,7 +4,7 @@ namespace DataLayer.Implementations.Events
 {
     public class Borrow : IEvent
     {
-        public Borrow(IUser user, IState state, string? guid = null)
+        private Borrow(IUser user, IState state, string? guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             User = user;
@@ -27,6 +27,10 @@ namespace DataLayer.Implementations.Events
 
             user.ProductsDic.Add(state.Product.Guid, state.Product);
             state.Quantity--;
+        }
+        public static IEvent CreateBorrow(IUser user, IState state)
+        {
+            return new Borrow(user, state);
         }
         public string Guid { get; }
         public IUser User { get; }

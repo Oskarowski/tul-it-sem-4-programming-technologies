@@ -7,9 +7,13 @@ namespace LogicLayer.Implementations
     public class DataService : IDataService
     {
         private IDataRepository _dataRepository;
-        public DataService(IDataRepository dataRepository)
+        private DataService(IDataRepository dataRepository)
         {
             _dataRepository = dataRepository;
+        }
+        public static IDataService CreateDataService(IDataRepository dataRepository)
+        {
+            return new DataService(dataRepository);
         }
         public void DeliverProduct(IUser user, IState state, int amount)
         {
@@ -27,7 +31,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Delivery(user, state, amount));
+                _dataRepository.AddEvent(Delivery.CreateDelivery(user, state, amount));
             }
             catch (Exception e)
             {
@@ -50,7 +54,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Borrow(user, state));
+                _dataRepository.AddEvent(Borrow.CreateBorrow(user, state));
             }
             catch (Exception e)
             {
@@ -71,7 +75,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Return(user, state));
+                _dataRepository.AddEvent(Return.CreateReturn(user, state));
             }
             catch (Exception e)
             {

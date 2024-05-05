@@ -15,7 +15,7 @@ public class DataLayerTests
         const double balance = 100.0;
         const int phoneNumber = 1234567890;
 
-        IUser user = new User(firstName, lastName, email, balance, phoneNumber, null);
+        IUser user = User.CreateUser(firstName, lastName, email, balance, phoneNumber, null);
 
         Assert.AreEqual(firstName, user.FirstName);
         Assert.AreEqual(lastName, user.LastName);
@@ -24,8 +24,8 @@ public class DataLayerTests
         Assert.AreEqual(phoneNumber, user.PhoneNumber);
         Assert.IsNotNull(user.Guid);
 
-        Book book1 = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
-        Book book2 = new Book("Book2", 20.0, "Author2", "Publisher2", 200, new DateTime(2022, 2, 2));
+        IBook book1 = Book.CreateBook("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
+        IBook book2 = Book.CreateBook("Book2", 20.0, "Author2", "Publisher2", 200, new DateTime(2022, 2, 2));
 
         Dictionary<string, IProduct> BooksCollection = new Dictionary<string, IProduct>
         {
@@ -38,7 +38,7 @@ public class DataLayerTests
         Assert.AreEqual(book1, user.ProductsDic[book1.Guid]);
         Assert.AreEqual(book2, user.ProductsDic[book2.Guid]);
 
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
         dataRepository.AddUser(user);
 
@@ -73,7 +73,7 @@ public class DataLayerTests
         const int pages = 299;
         DateTime publicationDate = new DateTime(2022, 1, 1);
 
-        IBook book = new Book(name, price, author, publisher, pages, publicationDate);
+        IBook book = Book.CreateBook(name, price, author, publisher, pages, publicationDate);
 
         Assert.AreEqual(name, book.Name);
         Assert.AreEqual(author, book.Author);
@@ -83,9 +83,9 @@ public class DataLayerTests
         Assert.AreEqual(publicationDate, book.PublicationDate);
 
 
-        Book book1 = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
+        IBook book1 = Book.CreateBook("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
 
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
         dataRepository.AddProduct(book);
 
@@ -97,12 +97,12 @@ public class DataLayerTests
     [TestMethod]
     public void StateTests()
     {
-        IProduct bookProduct = new Book("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 100, new DateTime(1951, 7, 16));
+        IProduct bookProduct = Book.CreateBook("Buszujący w Zbożu", 10.0, " J.D. Salinger", "Albatros", 100, new DateTime(1951, 7, 16));
 
         const int amountOfBooks = 10;
         double wholeStockPrice = bookProduct.Price * amountOfBooks;
 
-        IState bookProductState = new State(bookProduct, amountOfBooks);
+        IState bookProductState = State.CreateState(bookProduct, amountOfBooks);
 
         Assert.AreEqual(bookProduct, bookProductState.Product);
         Assert.AreEqual(amountOfBooks, bookProductState.Quantity);
@@ -113,7 +113,7 @@ public class DataLayerTests
     [TestMethod]
     public void DataContextTests()
     {
-        DataContext dataContext = new DataContext();
+        IDataContext dataContext = DataContext.createDataContext();
 
         Assert.IsNotNull(dataContext.Users);
         Assert.IsNotNull(dataContext.Products);
@@ -124,11 +124,11 @@ public class DataLayerTests
     [TestMethod]
     public void DataRepositoryTests()
     {
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.CreateDataRepository(DataContext.createDataContext());
 
-        IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
-        IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
-        IState state = new State(product, 10, "1234567890");
+        IUser user = User.CreateUser("John", "Doe", "Doe", 100.0, 1234567890, null);
+        IProduct product = Book.CreateBook("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
+        IState state = State.CreateState(product, 10, "1234567890");
 
         dataRepository.AddUser(user);
         dataRepository.AddProduct(product);

@@ -4,7 +4,7 @@ namespace DataLayer.Implementations.Events
 {
     public class Delivery : IEvent
     {
-        public Delivery(IUser user, IState state, int amount, string? guid = null)
+        private Delivery(IUser user, IState state, int amount, string? guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             User = user;
@@ -17,6 +17,10 @@ namespace DataLayer.Implementations.Events
             }
 
             state.Quantity += amount;
+        }
+        public static IEvent CreateDelivery(IUser user, IState state, int amount)
+        {
+            return new Delivery(user, state, amount);
         }
 
         public string Guid { get; }
