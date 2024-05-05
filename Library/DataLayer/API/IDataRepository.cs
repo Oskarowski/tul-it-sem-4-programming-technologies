@@ -1,5 +1,3 @@
-using DataLayer.Implementations;
-
 namespace DataLayer.API
 {
     public interface IDataRepository

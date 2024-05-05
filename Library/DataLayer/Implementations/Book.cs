@@ -1,4 +1,3 @@
-using System.Dynamic;
 using DataLayer.API;
 
 namespace DataLayer.Implementations
