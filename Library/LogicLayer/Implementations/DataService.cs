@@ -7,10 +7,15 @@ namespace LogicLayer.Implementations
     public class DataService : IDataService
     {
         private IDataRepository _dataRepository;
-        public DataService(IDataRepository dataRepository)
+        public static IDataService NewInstance(IDataRepository dataRepository)
+        {
+            return new DataService(dataRepository);
+        }
+        private DataService(IDataRepository dataRepository)
         {
             _dataRepository = dataRepository;
         }
+
         public void DeliverProduct(IUser user, IState state, int amount)
         {
 

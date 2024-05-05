@@ -4,10 +4,7 @@ namespace DataLayer.API
 {
     public interface IDataRepository
     {
-        static IDataRepository CreateDataRepository(IDataContext dataContext)
-        {
-            return new DataRepository(dataContext);
-        }
+        public void Seed(IDataFiller dataSeeder);
 
         #region User
         void AddUser(IUser user);
