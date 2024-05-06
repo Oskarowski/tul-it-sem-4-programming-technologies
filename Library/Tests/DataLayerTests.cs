@@ -38,7 +38,7 @@ public class DataLayerTests
         Assert.AreEqual(book1, user.ProductsDic[book1.Guid]);
         Assert.AreEqual(book2, user.ProductsDic[book2.Guid]);
 
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         dataRepository.AddUser(user);
 
@@ -85,7 +85,7 @@ public class DataLayerTests
 
         Book book1 = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));
 
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         dataRepository.AddProduct(book);
 
@@ -113,7 +113,7 @@ public class DataLayerTests
     [TestMethod]
     public void DataContextTests()
     {
-        DataContext dataContext = new DataContext();
+        IDataContext dataContext = DataContext.NewInstance();
 
         Assert.IsNotNull(dataContext.Users);
         Assert.IsNotNull(dataContext.Products);
@@ -124,7 +124,7 @@ public class DataLayerTests
     [TestMethod]
     public void DataRepositoryTests()
     {
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         IUser user = new User("John", "Doe", "Doe", 100.0, 1234567890, null);
         IProduct product = new Book("Book1", 10.0, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1));

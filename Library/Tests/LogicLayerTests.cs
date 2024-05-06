@@ -12,7 +12,7 @@ public class LogicLayerTests
     public void TestDeliverProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
@@ -25,7 +25,7 @@ public class LogicLayerTests
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.NewInstance(dataRepository);
 
         // Act
         const int amountOfBooksToDeliver = 5;
@@ -39,7 +39,7 @@ public class LogicLayerTests
     public void TestBorrowProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
@@ -52,7 +52,7 @@ public class LogicLayerTests
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.NewInstance(dataRepository);
 
         // Act
         dataService.BorrowProduct(testUser1, stateOfBookProduct1);
@@ -66,7 +66,7 @@ public class LogicLayerTests
     public void TestReturnProduct_Success()
     {
         // Arrange
-        IDataRepository dataRepository = IDataRepository.CreateDataRepository(new DataContext());
+        IDataRepository dataRepository = DataRepository.NewInstance(DataContext.NewInstance());
 
         var testUser1 = new User("User 1", "1", "1@gmail.com", 1000, 1234567890, null);
 
@@ -79,7 +79,7 @@ public class LogicLayerTests
         dataRepository.AddProduct(bookProduct1);
         dataRepository.AddState(stateOfBookProduct1);
 
-        IDataService dataService = new DataService(dataRepository);
+        IDataService dataService = DataService.NewInstance(dataRepository);
 
         dataService.BorrowProduct(testUser1, stateOfBookProduct1);
 

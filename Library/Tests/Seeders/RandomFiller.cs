@@ -4,10 +4,20 @@ using DataLayer.Implementations.Events;
 
 namespace Tests
 {
-    public class RandomFiller : IDataFiller
+    internal class RandomFiller : IDataFiller
     {
-        public void Fill(IDataContext context)
+        private List<IUser> GeneratedUsers;
+        private List<IProduct> GeneratedProducts;
+        private List<IEvent> GeneratedEvents;
+        private List<IState> GeneratedStates;
+
+        public RandomFiller()
         {
+            GeneratedUsers = new List<IUser>();
+            GeneratedProducts = new List<IProduct>();
+            GeneratedEvents = new List<IEvent>();
+            GeneratedStates = new List<IState>();
+
             Random random = new Random();
             int insertionsCount = random.Next(10, 100);
 
@@ -17,9 +27,9 @@ namespace Tests
                 IProduct product = new Book(GetRandomString(6), GetRandomNumber<double>(2), GetRandomString(6) + " " + GetRandomString(10), GetRandomString(6) + " " + GetRandomString(10), GetRandomNumber<int>(3), GetRandomDate());
                 IState state = new State(product, GetRandomNumber<int>(2) + 1);
 
-                context.Users.Add(user);
-                context.Products.Add(product);
-                context.States.Add(state);
+                GeneratedUsers.Add(user);
+                GeneratedProducts.Add(product);
+                GeneratedStates.Add(state);
 
                 double happening = random.NextDouble();
 
@@ -27,16 +37,16 @@ namespace Tests
                 {
                     if (happening <= 0.5)
                     {
-                        context.Events.Add(new Delivery(user, state, GetRandomNumber<int>(2) + 1));
+                        GeneratedEvents.Add(new Delivery(user, state, GetRandomNumber<int>(2) + 1));
                     }
 
                     if (happening <= 0.75)
                     {
-                        context.Events.Add(new Borrow(user, state));
+                        GeneratedEvents.Add(new Borrow(user, state));
 
                         if (happening <= 0.5)
                         {
-                            context.Events.Add(new Return(user, state));
+                            GeneratedEvents.Add(new Return(user, state));
                         }
                     }
                 }
@@ -103,6 +113,23 @@ namespace Tests
             int randomSeconds = random.Next(60);
 
             return start.AddDays(randomDays).AddHours(randomHours).AddMinutes(randomMinutes).AddSeconds(randomSeconds);
+        }
+
+        public List<IUser> GetGeneratedUsers()
+        {
+            return GeneratedUsers;
+        }
+        public List<IProduct> GetGeneratedProducts()
+        {
+            return GeneratedProducts;
+        }
+        public List<IEvent> GetGeneratedEvents()
+        {
+            return GeneratedEvents;
+        }
+        public List<IState> GetGeneratedStates()
+        {
+            return GeneratedStates;
         }
     }
 }

@@ -6,10 +6,33 @@ namespace DataLayer.Implementations
     {
         private IDataContext _dataContext;
 
-        // Init the data context
-        public DataRepository(IDataContext dataContext)
+        public static IDataRepository NewInstance(IDataContext dataContext)
+        {
+            return new DataRepository(dataContext);
+        }
+        private DataRepository(IDataContext dataContext)
         {
             _dataContext = dataContext;
+        }
+
+        public void Seed(IDataFiller dataSeeder)
+        {
+            foreach (IUser user in dataSeeder.GetGeneratedUsers())
+            {
+                AddUser(user);
+            }
+            foreach (IState state in dataSeeder.GetGeneratedStates())
+            {
+                AddState(state);
+            }
+            foreach (IProduct product in dataSeeder.GetGeneratedProducts())
+            {
+                AddProduct(product);
+            }
+            foreach (IEvent @event in dataSeeder.GetGeneratedEvents())
+            {
+                AddEvent(@event);
+            }
         }
 
         #region User
@@ -48,7 +71,7 @@ namespace DataLayer.Implementations
 
             userToBeUpdated = updateUser;
         }
-            
+
         #endregion
 
         #region Product
