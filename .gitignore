@@ -416,3 +416,4 @@ FodyWeavers.xsd
 *.vsix
 
 test_results.txt
+run_tests.sh

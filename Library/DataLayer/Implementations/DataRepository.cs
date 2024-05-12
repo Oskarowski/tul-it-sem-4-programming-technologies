@@ -1,4 +1,5 @@
 using DataLayer.API;
+using DataLayer.Implementations.Events;
 
 namespace DataLayer.Implementations
 {
@@ -115,6 +116,18 @@ namespace DataLayer.Implementations
         public void AddEvent(IEvent @event)
         {
             _dataContext.Events.Add(@event);
+        }
+        public void AddBorrow(IUser user, IState state)
+        {
+            AddEvent(new Borrow(user, state));
+        }
+        public void AddDelivery(IUser user, IState state, int amount)
+        {
+            AddEvent(new Delivery(user, state, amount));
+        }
+        public void AddReturn(IUser user, IState state)
+        {
+            AddEvent(new Return(user, state));
         }
         public IEvent GetEvent(string guid)
         {

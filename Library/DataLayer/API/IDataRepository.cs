@@ -27,6 +27,9 @@ namespace DataLayer.API
 
         #region Event
         void AddEvent(IEvent @event);
+        void AddBorrow(IUser user, IState state);
+        void AddDelivery(IUser user, IState state, int amount);
+        void AddReturn(IUser user, IState state);
         IEvent GetEvent(string guid);
         List<IEvent> GetAllEvents();
         List<IEvent> GetEventsByUser(string userGuid);

@@ -1,5 +1,4 @@
 using DataLayer.API;
-using DataLayer.Implementations.Events;
 using LogicLayer.API;
 
 namespace LogicLayer.Implementations
@@ -32,7 +31,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Delivery(user, state, amount));
+                _dataRepository.AddDelivery(user, state, amount);
             }
             catch (Exception e)
             {
@@ -55,7 +54,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Borrow(user, state));
+                _dataRepository.AddBorrow(user, state);
             }
             catch (Exception e)
             {
@@ -76,7 +75,7 @@ namespace LogicLayer.Implementations
 
             try
             {
-                _dataRepository.AddEvent(new Return(user, state));
+                _dataRepository.AddReturn(user, state);
             }
             catch (Exception e)
             {
