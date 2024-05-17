@@ -3,13 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "Library\DataLayer\DataLayer.csproj", "{37F35CAD-0E16-44DE-B1EC-B8806B87AF27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "Library\DataLayer\DataLayer.csproj", "{37F35CAD-0E16-44DE-B1EC-B8806B87AF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Library\Tests\Tests.csproj", "{E482E32E-3CA7-46DD-83C9-B094E0AD8BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Library\Tests\Tests.csproj", "{E482E32E-3CA7-46DD-83C9-B094E0AD8BA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B858A003-F5DD-4F95-99D9-5A7560A0B8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "Library\LogicLayer\LogicLayer.csproj", "{34D82E95-A0C6-4C12-8BB0-6836280E2491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "Library\LogicLayer\LogicLayer.csproj", "{34D82E95-A0C6-4C12-8BB0-6836280E2491}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Library\Presentation\Presentation.csproj", "{B327AD06-AABD-4674-9581-2D088B684457}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{6CFCAD25-A8CD-4ACA-8490-07AA446A5047}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,14 +36,21 @@ Global
 		{34D82E95-A0C6-4C12-8BB0-6836280E2491}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D82E95-A0C6-4C12-8BB0-6836280E2491}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D82E95-A0C6-4C12-8BB0-6836280E2491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B327AD06-AABD-4674-9581-2D088B684457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B327AD06-AABD-4674-9581-2D088B684457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B327AD06-AABD-4674-9581-2D088B684457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B327AD06-AABD-4674-9581-2D088B684457}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{37F35CAD-0E16-44DE-B1EC-B8806B87AF27} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+		{E482E32E-3CA7-46DD-83C9-B094E0AD8BA3} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+		{34D82E95-A0C6-4C12-8BB0-6836280E2491} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+		{B327AD06-AABD-4674-9581-2D088B684457} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8DC2F37-8FC7-433C-BA78-56CAE077B47B}
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{34D82E95-A0C6-4C12-8BB0-6836280E2491} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 	EndGlobalSection
 EndGlobal
