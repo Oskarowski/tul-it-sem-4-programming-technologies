@@ -1,14 +1,26 @@
-﻿<Window x:Class="Presentation.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentation"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="Presentation.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Rectangle HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="235"/>
-        <Rectangle HorizontalAlignment="Center" Height="114" Margin="0,310,0,0" Stroke="Black" VerticalAlignment="Top" Width="780"/>
-        <Rectangle HorizontalAlignment="Left" Height="300" Margin="245,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="545"/>
+    <Grid Background="#FF9DCCE6">
+        <Viewbox Margin="10,10,10,123" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Menu Width="120">
+                <MenuItem Height="30" Header="Add" Width="120"/>
+                <MenuItem Height="30" Header="Remove" Width="120"/>
+                <MenuItem Height="30" Header="Modify" Width="120"/>
+                <MenuItem Height="30" Header="Perform action" Width="120"/>
+                <MenuItem Height="30" Header="List" Width="120"/>
+            </Menu>
+        </Viewbox>
+        <Viewbox Margin="256,10,10,123"/>
+        <Viewbox Margin="10,316,10,10"/>
+        <Rectangle HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="241"/>
+        <Rectangle HorizontalAlignment="Left" Height="301" Margin="255,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="535"/>
+        <Rectangle HorizontalAlignment="Center" Height="108" Margin="0,316,0,0" Stroke="Black" VerticalAlignment="Top" Width="780"/>
     </Grid>
 </Window>
