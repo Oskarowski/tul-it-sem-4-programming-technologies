@@ -6,12 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "Library\DataLayer\DataLayer.csproj", "{37F35CAD-0E16-44DE-B1EC-B8806B87AF27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Library\Tests\Tests.csproj", "{E482E32E-3CA7-46DD-83C9-B094E0AD8BA3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B327AD06-AABD-4674-9581-2D088B684457} = {B327AD06-AABD-4674-9581-2D088B684457}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B858A003-F5DD-4F95-99D9-5A7560A0B8CF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogicLayer", "Library\LogicLayer\LogicLayer.csproj", "{34D82E95-A0C6-4C12-8BB0-6836280E2491}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Library\Presentation\Presentation.csproj", "{B327AD06-AABD-4674-9581-2D088B684457}"
+	ProjectSection(ProjectDependencies) = postProject
+		{34D82E95-A0C6-4C12-8BB0-6836280E2491} = {34D82E95-A0C6-4C12-8BB0-6836280E2491}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementy rozwiązania", "Elementy rozwiązania", "{6CFCAD25-A8CD-4ACA-8490-07AA446A5047}"
 	ProjectSection(SolutionItems) = preProject

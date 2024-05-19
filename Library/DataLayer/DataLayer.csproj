@@ -1,10 +1,51 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net481</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="System" />
+		<Reference Include="System.Data" />
+		<Reference Include="System.Data.DataSetExtensions" />
+		<Reference Include="System.Data.Linq" />
+		<Reference Include="System.Xml" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <None Update="Instrumentation\Library.mdf">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Instrumentation\Library_log.ldf">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+        <None Update="Catalogue.dbml">
+            <Generator>MSLinqToSQLGenerator</Generator>
+            <LastGenOutput>Catalogue.designer.cs</LastGenOutput>
+        </None>
+        <None Update="Properties\Settings.settings">
+          <Generator>SettingsSingleFileGenerator</Generator>
+          <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Service Include="{3259aa49-8aa1-44d3-9025-a0b520596a8c}" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Catalogue.designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Catalogue.dbml</DependentUpon>
+        </Compile>
+        <Compile Update="Properties\Settings.Designer.cs">
+          <DesignTimeSharedInput>True</DesignTimeSharedInput>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+    </ItemGroup>
 
 </Project>

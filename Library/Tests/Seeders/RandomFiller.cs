@@ -2,7 +2,7 @@ using DataLayer.API;
 using DataLayer.Implementations;
 using DataLayer.Implementations.Events;
 
-namespace Tests
+namespace Tests.Seeders
 {
     internal class RandomFiller : IDataFiller
     {

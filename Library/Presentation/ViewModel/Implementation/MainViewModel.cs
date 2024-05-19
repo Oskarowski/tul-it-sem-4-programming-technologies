@@ -1,6 +1,6 @@
 using Presentation.ViewModel.API;
 
-namespace Presentation.ViewModel
+namespace Presentation.ViewModel.Implementation
 {
     public class MainViewModel : ViewModelBase
     {

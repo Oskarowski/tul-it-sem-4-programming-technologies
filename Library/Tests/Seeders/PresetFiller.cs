@@ -2,9 +2,9 @@ using DataLayer.API;
 using DataLayer.Implementations;
 using DataLayer.Implementations.Events;
 
-namespace Tests
+namespace Tests.Seeders
 {
-    internal class PresetFiller : IDataFiller 
+    internal class PresetFiller : IDataFiller
     {
         private List<IUser> GeneratedUsers;
         private List<IProduct> GeneratedProducts;
@@ -23,7 +23,7 @@ namespace Tests
             var user3 = new User("Alice", "Smith", "alicesmith@email", 800, 121212121, null);
             var user4 = new User("Bob", "Smith", "bobsmith@email", 900, 987654321, null);
             var user5 = new User("Charlie", "Brown", "charliebrown@email", 1000, 999999999, null);
-            
+
             GeneratedUsers.Add(user1);
             GeneratedUsers.Add(user2);
             GeneratedUsers.Add(user3);
@@ -79,21 +79,25 @@ namespace Tests
 
             var event10 = new Return(user1, state1);
             var event11 = new Return(user2, state2);
-            
+
             GeneratedEvents.Add(event10);
             GeneratedEvents.Add(event11);
         }
 
-        public List<IUser> GetGeneratedUsers(){
+        public List<IUser> GetGeneratedUsers()
+        {
             return GeneratedUsers;
         }
-        public List<IProduct> GetGeneratedProducts(){
+        public List<IProduct> GetGeneratedProducts()
+        {
             return GeneratedProducts;
         }
-        public List<IEvent> GetGeneratedEvents(){
+        public List<IEvent> GetGeneratedEvents()
+        {
             return GeneratedEvents;
         }
-        public List<IState> GetGeneratedStates(){
+        public List<IState> GetGeneratedStates()
+        {
             return GeneratedStates;
         }
     }
