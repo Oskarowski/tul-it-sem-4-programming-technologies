@@ -1,10 +1,11 @@
 using DataLayer.API;
+using System.Collections.Generic;
 
 namespace DataLayer.Implementations
 {
     public class User : IUser
     {
-        public User(string firstName, string lastName, string email, double balance, int phoneNumber, Dictionary<string, IProduct>? productsDic)
+        public User(string firstName, string lastName, string email, double balance, int phoneNumber, Dictionary<string, IProduct> productsDic = null)
         {
             Guid = System.Guid.NewGuid().ToString();
             FirstName = firstName;

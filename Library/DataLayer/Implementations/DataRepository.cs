@@ -1,4 +1,7 @@
 using DataLayer.API;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DataLayer.Implementations
 {
@@ -42,7 +45,7 @@ namespace DataLayer.Implementations
         }
         public IUser GetUser(string guid)
         {
-            IUser? user = _dataContext.Users.FirstOrDefault(u => u.Guid == guid) ?? throw new Exception("User does not exist");
+            IUser user = _dataContext.Users.FirstOrDefault(u => u.Guid == guid) ?? throw new Exception("User does not exist");
 
             return user;
         }
@@ -52,9 +55,9 @@ namespace DataLayer.Implementations
         }
         public void RemoveUser(string guid)
         {
-            IUser user = _dataContext.Users.FirstOrDefault(user => user.Guid == guid) ?? throw new Exception("User does not exist");
+            IUser userRem = _dataContext.Users.FirstOrDefault(user => user.Guid == guid) ?? throw new Exception("User does not exist");
 
-            _dataContext.Users.Remove(user);
+            _dataContext.Users.Remove(userRem);
         }
         public bool DoesUserExist(string guid)
         {
@@ -62,7 +65,7 @@ namespace DataLayer.Implementations
         }
         public void UpdateUser(IUser updateUser)
         {
-            IUser? userToBeUpdated = _dataContext.Users.FirstOrDefault(u => u.Guid == updateUser.Guid);
+            IUser userToBeUpdated = _dataContext.Users.FirstOrDefault(u => u.Guid == updateUser.Guid);
 
             if (userToBeUpdated == null)
             {
@@ -81,9 +84,9 @@ namespace DataLayer.Implementations
         }
         public IProduct GetProduct(string guid)
         {
-            IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
+            IProduct productGet = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
 
-            return product;
+            return productGet;
         }
         public List<IProduct> GetAllProducts()
         {
@@ -91,7 +94,7 @@ namespace DataLayer.Implementations
         }
         public IProduct GetProductByState(string stateGuid)
         {
-            IProduct? product = _dataContext.States.FirstOrDefault(state => state.Guid == stateGuid)?.Product;
+            IProduct product = _dataContext.States.FirstOrDefault(state => state.Guid == stateGuid)?.Product;
             if (product == null)
             {
                 throw new Exception("Product does not exist");
@@ -105,9 +108,9 @@ namespace DataLayer.Implementations
         }
         public void RemoveProduct(string guid)
         {
-            IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
+            IProduct productRem = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
 
-            _dataContext.Products.Remove(product);
+            _dataContext.Products.Remove(productRem);
         }
         #endregion
 
@@ -118,9 +121,9 @@ namespace DataLayer.Implementations
         }
         public IEvent GetEvent(string guid)
         {
-            IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
+            IEvent @eventGet = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
 
-            return @event;
+            return @eventGet;
         }
         public List<IEvent> GetAllEvents()
         {
@@ -146,9 +149,9 @@ namespace DataLayer.Implementations
         }
         public void RemoveEvent(string guid)
         {
-            IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
+            IEvent @eventRem = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
 
-            _dataContext.Events.Remove(@event);
+            _dataContext.Events.Remove(@eventRem);
         }
         #endregion
 
@@ -163,15 +166,15 @@ namespace DataLayer.Implementations
         }
         public IState GetState(string guid)
         {
-            IState state = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
+            IState stateGet = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
 
-            return state;
+            return stateGet;
         }
         public void RemoveState(string guid)
         {
-            IState state = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
+            IState stateRem = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
 
-            _dataContext.States.Remove(state);
+            _dataContext.States.Remove(stateRem);
         }
         #endregion
     }

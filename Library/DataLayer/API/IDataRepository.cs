@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace DataLayer.API
 {
     public interface IDataRepository
     {
-        public void Seed(IDataFiller dataSeeder);
+        void Seed(IDataFiller dataSeeder);
 
         #region User
         void AddUser(IUser user);

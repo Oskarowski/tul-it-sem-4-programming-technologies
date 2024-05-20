@@ -124,13 +124,6 @@ namespace DataLayer
 			return ((ISingleResult<GetProductByIDResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetUsers")]
-		public ISingleResult<GetUsersResult> GetUsers()
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
-			return ((ISingleResult<GetUsersResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetAllStates")]
 		public ISingleResult<GetAllStatesResult> GetAllStates()
 		{
@@ -743,13 +736,15 @@ namespace DataLayer
 		
 		private System.Guid _ID;
 		
-		private System.Guid _UserID;
+		private System.Nullable<System.Guid> _UserID;
 		
-		private System.Guid _StateID;
+		private System.Nullable<System.Guid> _StateID;
 		
 		private System.DateTime _CreatedAt;
 		
 		private string _EventType;
+		
+		private System.Nullable<int> _Amount;
 		
 		private EntityRef<State> _State;
 		
@@ -761,14 +756,16 @@ namespace DataLayer
     partial void OnCreated();
     partial void OnIDChanging(System.Guid value);
     partial void OnIDChanged();
-    partial void OnUserIDChanging(System.Guid value);
+    partial void OnUserIDChanging(System.Nullable<System.Guid> value);
     partial void OnUserIDChanged();
-    partial void OnStateIDChanging(System.Guid value);
+    partial void OnStateIDChanging(System.Nullable<System.Guid> value);
     partial void OnStateIDChanged();
     partial void OnCreatedAtChanging(System.DateTime value);
     partial void OnCreatedAtChanged();
     partial void OnEventTypeChanging(string value);
     partial void OnEventTypeChanged();
+    partial void OnAmountChanging(System.Nullable<int> value);
+    partial void OnAmountChanged();
     #endregion
 		
 		public Event()
@@ -799,7 +796,7 @@ namespace DataLayer
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid UserID
+		public System.Nullable<System.Guid> UserID
 		{
 			get
 			{
@@ -823,7 +820,7 @@ namespace DataLayer
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StateID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid StateID
+		public System.Nullable<System.Guid> StateID
 		{
 			get
 			{
@@ -886,6 +883,26 @@ namespace DataLayer
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount")]
+		public System.Nullable<int> Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="State_Event", Storage="_State", ThisKey="StateID", OtherKey="ID", IsForeignKey=true)]
 		public State State
 		{
@@ -913,7 +930,7 @@ namespace DataLayer
 					}
 					else
 					{
-						this._StateID = default(System.Guid);
+						this._StateID = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("State");
 				}
@@ -947,7 +964,7 @@ namespace DataLayer
 					}
 					else
 					{
-						this._UserID = default(System.Guid);
+						this._UserID = default(Nullable<System.Guid>);
 					}
 					this.SendPropertyChanged("User");
 				}
@@ -1314,122 +1331,6 @@ namespace DataLayer
 				if ((this._PublicationDate != value))
 				{
 					this._PublicationDate = value;
-				}
-			}
-		}
-	}
-	
-	public partial class GetUsersResult
-	{
-		
-		private System.Guid _ID;
-		
-		private string _FirstName;
-		
-		private string _LastName;
-		
-		private string _Email;
-		
-		private decimal _Balance;
-		
-		private string _PhoneNumber;
-		
-		public GetUsersResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL")]
-		public System.Guid ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this._ID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FirstName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string FirstName
-		{
-			get
-			{
-				return this._FirstName;
-			}
-			set
-			{
-				if ((this._FirstName != value))
-				{
-					this._FirstName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string LastName
-		{
-			get
-			{
-				return this._LastName;
-			}
-			set
-			{
-				if ((this._LastName != value))
-				{
-					this._LastName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this._Email = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Balance", DbType="Decimal(18,2) NOT NULL")]
-		public decimal Balance
-		{
-			get
-			{
-				return this._Balance;
-			}
-			set
-			{
-				if ((this._Balance != value))
-				{
-					this._Balance = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
-		public string PhoneNumber
-		{
-			get
-			{
-				return this._PhoneNumber;
-			}
-			set
-			{
-				if ((this._PhoneNumber != value))
-				{
-					this._PhoneNumber = value;
 				}
 			}
 		}

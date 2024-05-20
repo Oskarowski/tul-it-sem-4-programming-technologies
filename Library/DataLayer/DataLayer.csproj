@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>net481</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <ImplicitUsings>disable</ImplicitUsings>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 

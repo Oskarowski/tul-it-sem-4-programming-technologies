@@ -1,10 +1,11 @@
 using DataLayer.API;
+using System;
 
 namespace DataLayer.Implementations.Events
 {
     public class Borrow : IEvent
     {
-        public Borrow(IUser user, IState state, string? guid = null)
+        public Borrow(IUser user, IState state, string guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             User = user;

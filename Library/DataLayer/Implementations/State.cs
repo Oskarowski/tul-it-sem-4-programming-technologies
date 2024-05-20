@@ -1,4 +1,5 @@
 using DataLayer.API;
+using System;
 
 namespace DataLayer.Implementations
 {
@@ -6,7 +7,7 @@ namespace DataLayer.Implementations
     {
         private int _quantity;
         private DateTime _lastUpdatedDate;
-        public State(IProduct product, int quantity = 0, string? guid = null)
+        public State(IProduct product, int quantity = 0, string guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             Product = product;

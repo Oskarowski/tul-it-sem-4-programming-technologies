@@ -1,10 +1,11 @@
 using DataLayer.API;
+using System;
 
 namespace DataLayer.Implementations.Events
 {
     public class Return : IEvent
     {
-        public Return(IUser user, IState state, string? guid = null)
+        public Return(IUser user, IState state, string guid = null)
         {
             Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             User = user;

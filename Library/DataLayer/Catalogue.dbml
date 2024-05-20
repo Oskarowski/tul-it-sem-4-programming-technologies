@@ -33,10 +33,11 @@
   <Table Name="dbo.Events" Member="Events">
     <Type Name="Event">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="StateID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="true" />
+      <Column Name="StateID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="true" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Member="EventType" Type="System.String" CanBeNull="false" />
+      <Column Name="EventType" Type="System.String" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Int32" CanBeNull="true" />
       <Association Name="State_Event" Member="State" ThisKey="StateID" OtherKey="ID" Type="State" IsForeignKey="true" />
       <Association Name="User_Event" Member="User" ThisKey="UserID" OtherKey="ID" Type="User" IsForeignKey="true" />
     </Type>
@@ -62,16 +63,6 @@
       <Column Name="Publisher" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Pages" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PublicationDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetUsers" Method="GetUsers">
-    <ElementType Name="GetUsersResult">
-      <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
-      <Column Name="FirstName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Email" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.GetAllStates" Method="GetAllStates">

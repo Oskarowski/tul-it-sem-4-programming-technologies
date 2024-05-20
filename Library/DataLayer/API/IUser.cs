@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace DataLayer.API
 {
     public interface IUser
