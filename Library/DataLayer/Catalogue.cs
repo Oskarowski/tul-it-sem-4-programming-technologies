@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 
@@ -86,10 +87,10 @@ namespace DataLayer
             }
         }
         
-        public void DeleteProductById(Guid ID)
+        public void DeleteBookById(Guid ID)
         {
-            Product product = this.Products.SingleOrDefault(p => p.ID == ID);
-            if (product != null)
+            Book book = this.Books.SingleOrDefault(b => b.ProductID == ID);
+            if (book != null)
             {
                 // delete the associated product state
                 State state = this.States.SingleOrDefault(s => s.ProductID == ID);
@@ -98,17 +99,17 @@ namespace DataLayer
                     this.States.DeleteOnSubmit(state);
                 }
 
-                // Retrieve the associated book instance to delete
-                Book book = this.Books.SingleOrDefault(b => b.ProductID == ID);
+                // Retrieve the associated product instance to delete
+                Product product = this.Products.SingleOrDefault(p => p.ID == ID);
 
-                // Check if the associated book exists and delete it
-                if (book != null)
+                // Check if the associated product exists and delete it
+                if (product != null)
                 {
-                    this.Books.DeleteOnSubmit(book);
+                    this.Products.DeleteOnSubmit(product);
                 }
 
-                // Delete the product
-                this.Products.DeleteOnSubmit(product);
+                // Delete the book
+                this.Books.DeleteOnSubmit(book);
 
                 // Submit the changes to the database
                 this.SubmitChanges();
@@ -352,6 +353,49 @@ namespace DataLayer
                 @event.EventType = eventType;
                 this.SubmitChanges();
             }
+        }
+        #endregion
+
+        #region Find Methods
+        public IEnumerable<Product> FindProducts(string name = null, decimal? price = null)
+        {
+            return this.Products.Where(p => (name == null || p.Name == name) &&
+                                                (!price.HasValue || p.Price == price.Value));
+        }
+
+        public IEnumerable<User> FindUsers(string firstName = null, string lastName = null,
+                               string email = null, string phoneNumber = null)
+        {
+            return this.Users.Where(u => (firstName == null || u.FirstName == firstName) &&
+                                            (lastName == null || u.LastName == lastName) &&
+                                            (email == null || u.Email == email) &&
+                                            (phoneNumber == null || u.PhoneNumber == phoneNumber));
+        }
+
+        public IEnumerable<State> FindStates(Guid? productID = null, int? quantity = null)
+        {
+            return this.States.Where(s => (!productID.HasValue || s.ProductID == productID.Value) &&
+                                            (!quantity.HasValue || s.Quantity == quantity.Value));
+        }
+
+        public IEnumerable<Event> FindEvents(Guid? userID = null, Guid? stateID = null,
+                                          string eventType = null, int? amount = null)
+        {
+            return this.Events.Where(e => (!userID.HasValue || e.UserID == userID.Value) &&
+                                                (!stateID.HasValue || e.StateID == stateID.Value) &&
+                                                (eventType == null || e.EventType == eventType) &&
+                                                (!amount.HasValue || e.Amount == amount.Value));
+        }
+
+        public IEnumerable<Book> FindBooks(Guid? productID = null, string author = null,
+                                                string publisher = null, int? pages = null,
+                                                DateTime? publicationDate = null)
+        {
+            return this.Books.Where(b => (!productID.HasValue || b.ProductID == productID.Value) &&
+                                                (author == null || b.Author == author) &&
+                                                (publisher == null || b.Publisher == publisher) &&
+                                                (!pages.HasValue || b.Pages == pages.Value) &&
+                                                (!publicationDate.HasValue || b.PublicationDate == publicationDate.Value));
         }
         #endregion
     }
