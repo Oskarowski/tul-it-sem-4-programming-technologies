@@ -1,32 +1,36 @@
 ﻿using DataLayer.API;
 using DataLayer.Implementations;
+using System;
 using Tests.Seeders;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests;
-
-[TestClass]
-public class FillerTests
+namespace Tests
 {
-    [TestMethod]
-    public void PredefinedFillerTests()
+
+    [TestClass]
+    public class FillerTests
     {
-        IDataRepository repository = DataRepository.NewInstance(DataContext.NewInstance());
+        [TestMethod]
+        public void PredefinedFillerTests()
+        {
+            IDataRepository repository = DataRepository.NewInstance(DataContext.NewInstance());
 
-        repository.Seed(new PresetFiller());
+            repository.Seed(new PresetFiller());
 
-        Assert.AreEqual(5, repository.GetAllUsers().Count);
-        Assert.AreEqual(5, repository.GetAllProducts().Count);
-        Assert.AreEqual(5, repository.GetAllStates().Count);
-        Assert.AreEqual(11, repository.GetAllEvents().Count);
-    }
+            Assert.AreEqual(5, repository.GetAllUsers().Count);
+            Assert.AreEqual(5, repository.GetAllProducts().Count);
+            Assert.AreEqual(5, repository.GetAllStates().Count);
+            Assert.AreEqual(11, repository.GetAllEvents().Count);
+        }
 
-    [TestMethod]
-    public void RandomFillerTests()
-    {
-        IDataRepository repository = DataRepository.NewInstance(DataContext.NewInstance());
-        repository.Seed(new RandomFiller());
+        [TestMethod]
+        public void RandomFillerTests()
+        {
+            IDataRepository repository = DataRepository.NewInstance(DataContext.NewInstance());
+            repository.Seed(new RandomFiller());
 
-        Assert.ThrowsException<ArgumentException>(() => {RandomFiller.GetRandomNumber<int>(0);});
-        Assert.AreEqual(15, RandomFiller.GetRandomString(15).Length);
+            Assert.ThrowsException<ArgumentException>(() => { RandomFiller.GetRandomNumber<int>(0); });
+            Assert.AreEqual(15, RandomFiller.GetRandomString(15).Length);
+        }
     }
 }

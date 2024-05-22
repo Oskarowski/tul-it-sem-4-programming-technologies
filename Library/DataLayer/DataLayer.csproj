@@ -15,12 +15,6 @@
 	</ItemGroup>
 
     <ItemGroup>
-        <None Update="Instrumentation\Library.mdf">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="Instrumentation\Library_log.ldf">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </None>
         <None Update="Catalogue.dbml">
             <Generator>MSLinqToSQLGenerator</Generator>
             <LastGenOutput>Catalogue.designer.cs</LastGenOutput>

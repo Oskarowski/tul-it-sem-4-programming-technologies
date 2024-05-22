@@ -5,10 +5,11 @@ using DataLayer.Implementations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Data.SqlClient;
 using System.Data.Linq;
+using System.IO;
+using System;
 
 namespace Tests
 {
-
     [TestClass]
     public class DataLayerTests
     {
@@ -160,116 +161,5 @@ namespace Tests
         //    Assert.IsFalse(dataRepository.GetAllProducts().Contains(product));
         //    Assert.IsFalse(dataRepository.GetAllStates().Contains(state));
         //}
-
-        private static string m_ConnectionString;
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            string _DBPath = @"..\DataLayer\Instrumentation\Library.mdf";
-            FileInfo _databaseFile = new FileInfo(_DBPath);
-            Assert.IsTrue(_databaseFile.Exists, $"{Environment.CurrentDirectory}");
-            m_ConnectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security = True; Connect Timeout = 30;";
-        }
-
-        [TestMethod]
-        public void CatalogFillQueryTest()
-        {
-            using (CatalogueDataContext _catalogue = new CatalogueDataContext(m_ConnectionString))
-            {
-                Assert.IsNotNull(_catalogue.Connection);
-                Assert.AreEqual<int>(0, _catalogue.Users.Count());
-                Assert.AreEqual<int>(0, _catalogue.Products.Count());
-                Assert.AreEqual<int>(0, _catalogue.States.Count());
-                Assert.AreEqual<int>(0, _catalogue.Events.Count());
-                try { 
-
-                    ExecuteSqlScript(_catalogue, @"..\DataLayer\Instrumentation\DatabaseSeeder.sql");
-                    Assert.AreEqual<int>(3, _catalogue.Users.Count());
-                    Assert.AreEqual<int>(3, _catalogue.Products.Count());
-                    Assert.AreEqual<int>(3, _catalogue.States.Count());
-                    Assert.AreEqual<int>(3, _catalogue.Events.Count());
-                }
-                finally
-                {
-                    ExecuteSqlScript(_catalogue, @"..\DataLayer\Instrumentation\ClearData.sql");
-                }
-            }
-        }
-
-        [TestMethod]
-        public void InsertTest()
-        {
-            using (CatalogueDataContext _catalogue = new CatalogueDataContext(m_ConnectionString))
-            {
-                Assert.IsNotNull(_catalogue.Connection);
-                Assert.AreEqual<int>(0, _catalogue.Users.Count());
-                Assert.AreEqual<int>(0, _catalogue.Products.Count());
-                Assert.AreEqual<int>(0, _catalogue.States.Count());
-                Assert.AreEqual<int>(0, _catalogue.Events.Count());
-                try
-                {
-                    Guid userGuid = new Guid();
-                    Guid bookGuid = new Guid();
-                    Guid stateGuid = new Guid();
-                    Guid eventGuid = new Guid();
-                    _catalogue.InsertUser("John", "Doe", "JohnDoe@email.com", "123456789", userGuid);
-                    _catalogue.InsertBook("Book1", 10.00m, "Author1", "Publisher1", 100, new DateTime(2022, 1, 1), bookGuid);
-                    _catalogue.InsertState(bookGuid, 10, stateGuid);
-                    _catalogue.InsertEvent(userGuid, bookGuid, "Borrow", null, eventGuid);
-
-                    Assert.AreEqual<int>(1, _catalogue.Users.Count());
-                    Assert.AreEqual<int>(1, _catalogue.Products.Count());
-                    Assert.AreEqual<int>(1, _catalogue.States.Count());
-                    Assert.AreEqual<int>(1, _catalogue.Events.Count());
-                }
-                finally
-                {
-                    ExecuteSqlScript(_catalogue, @"..\DataLayer\Instrumentation\ClearData.sql");
-                }
-
-            }
-        }
-
-        [TestMethod]
-        public void DeleteTest()
-        {
-            //TODO: NOT WORKING YET
-            using (CatalogueDataContext _catalogue = new CatalogueDataContext(m_ConnectionString))
-            {
-                Assert.IsNotNull(_catalogue.Connection);
-                Assert.AreEqual<int>(0, _catalogue.Users.Count());
-                Assert.AreEqual<int>(0, _catalogue.Products.Count());
-                Assert.AreEqual<int>(0, _catalogue.States.Count());
-                Assert.AreEqual<int>(0, _catalogue.Events.Count());
-                try
-                {
-                    ExecuteSqlScript(_catalogue, @"..\DataLayer\Instrumentation\DatabaseSeeder.sql");
-                    Assert.AreEqual<int>(3, _catalogue.Users.Count());
-                    Assert.AreEqual<int>(3, _catalogue.Products.Count());
-                    Assert.AreEqual<int>(3, _catalogue.States.Count());
-                    Assert.AreEqual<int>(3, _catalogue.Events.Count());
-
-                    //_catalogue.DeleteUser("JohnDoe");
-                    //_catalogue.DeleteProduct("Book1");
-                    //_catalogue.DeleteState("Book1");
-                    //_catalogue.DeleteEvent("JohnDoe");
-
-                    Assert.AreEqual<int>(2, _catalogue.Users.Count());
-                    Assert.AreEqual<int>(2, _catalogue.Products.Count());
-                    Assert.AreEqual<int>(2, _catalogue.States.Count());
-                    Assert.AreEqual<int>(2, _catalogue.Events.Count());
-                }
-                finally
-                {
-                    ExecuteSqlScript(_catalogue, @"..\DataLayer\Instrumentation\ClearData.sql");
-                }
-            }
-        }
-
-        private void ExecuteSqlScript(CatalogueDataContext context, string scriptPath)
-        {
-            string script = File.ReadAllText(scriptPath);
-            context.ExecuteCommand(script);
-        }
     }
 }

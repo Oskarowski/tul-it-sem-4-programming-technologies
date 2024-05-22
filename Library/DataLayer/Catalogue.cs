@@ -87,50 +87,6 @@ namespace DataLayer
             }
         }
 
-        public void DeleteUsersBy(Guid? ID = null, string firstName = null,
-                          string lastName = null, string email = null,
-                          string phoneNumber = null)
-        {
-            var usersToDelete = this.Users.AsQueryable();
-
-            if (ID.HasValue)
-            {
-                usersToDelete = usersToDelete.Where(u => u.ID == ID.Value);
-            }
-            if (!string.IsNullOrEmpty(firstName))
-            {
-                usersToDelete = usersToDelete.Where(u => u.FirstName == firstName);
-            }
-            if (!string.IsNullOrEmpty(lastName))
-            {
-                usersToDelete = usersToDelete.Where(u => u.LastName == lastName);
-            }
-            if (!string.IsNullOrEmpty(email))
-            {
-                usersToDelete = usersToDelete.Where(u => u.Email == email);
-            }
-            if (!string.IsNullOrEmpty(phoneNumber))
-            {
-                usersToDelete = usersToDelete.Where(u => u.PhoneNumber == phoneNumber);
-            }
-
-            var userIdsToDelete = usersToDelete.Select(u => u.ID).ToList();
-
-            if (userIdsToDelete.Any())
-            {
-                // Update associated Events to nullify UserID
-                var eventsToUpdate = this.Events.Where(e => userIdsToDelete.Contains(e.UserID.Value));
-                foreach (var eventInstance in eventsToUpdate)
-                {
-                    eventInstance.UserID = null;
-                }
-
-                // Delete the users
-                this.Users.DeleteAllOnSubmit(usersToDelete);
-                this.SubmitChanges();
-            }
-        }
-
         public void DeleteBookById(Guid ID)
         {
             Book book = this.Books.SingleOrDefault(b => b.ProductID == ID);
@@ -196,6 +152,235 @@ namespace DataLayer
                 }
 
                 this.States.DeleteOnSubmit(state);
+                this.SubmitChanges();
+            }
+        }
+
+        public void DeleteUsersBy(Guid? ID = null, string firstName = null,
+                          string lastName = null, string email = null,
+                          string phoneNumber = null)
+        {
+            var usersToDelete = this.Users.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                usersToDelete = usersToDelete.Where(u => u.ID == ID.Value);
+            }
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                usersToDelete = usersToDelete.Where(u => u.FirstName == firstName);
+            }
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                usersToDelete = usersToDelete.Where(u => u.LastName == lastName);
+            }
+            if (!string.IsNullOrEmpty(email))
+            {
+                usersToDelete = usersToDelete.Where(u => u.Email == email);
+            }
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                usersToDelete = usersToDelete.Where(u => u.PhoneNumber == phoneNumber);
+            }
+
+            var userIdsToDelete = usersToDelete.Select(u => u.ID).ToList();
+
+            if (userIdsToDelete.Any())
+            {
+                // Update associated Events to nullify UserID
+                var eventsToUpdate = this.Events.Where(e => userIdsToDelete.Contains(e.UserID.Value));
+                foreach (var eventInstance in eventsToUpdate)
+                {
+                    eventInstance.UserID = null;
+                }
+
+                // Delete the users
+                this.Users.DeleteAllOnSubmit(usersToDelete);
+                this.SubmitChanges();
+            }
+        }
+
+        public void DeleteBooksBy(Guid? ID = null, string name = null, decimal? price = null,
+                          string author = null, string publisher = null,
+                          int? pages = null, DateTime? publicationDate = null)
+        {
+            var booksToDelete = this.Books.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                booksToDelete = booksToDelete.Where(b => b.ProductID == ID.Value);
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                booksToDelete = booksToDelete.Where(b => b.Product.Name == name);
+            }
+            if (price.HasValue)
+            {
+                booksToDelete = booksToDelete.Where(b => b.Product.Price == price.Value);
+            }
+            if (!string.IsNullOrEmpty(author))
+            {
+                booksToDelete = booksToDelete.Where(b => b.Author == author);
+            }
+            if (!string.IsNullOrEmpty(publisher))
+            {
+                booksToDelete = booksToDelete.Where(b => b.Publisher == publisher);
+            }
+            if (pages.HasValue)
+            {
+                booksToDelete = booksToDelete.Where(b => b.Pages == pages.Value);
+            }
+            if (publicationDate.HasValue)
+            {
+                booksToDelete = booksToDelete.Where(b => b.PublicationDate == publicationDate.Value);
+            }
+
+            var bookIdsToDelete = booksToDelete.Select(b => b.ProductID).ToList();
+
+            if (bookIdsToDelete.Any())
+            {
+                // Update associated States to nullify ProductID
+                var statesToUpdate = this.States.Where(s => bookIdsToDelete.Contains(s.ProductID));
+                foreach (var state in statesToUpdate)
+                {
+                    var eventsToUpdate = this.Events.Where(e => e.StateID == state.ID);
+                    foreach (var eventInstance in eventsToUpdate)
+                    {
+                        eventInstance.StateID = null;
+                    }
+                    this.States.DeleteOnSubmit(state);
+                }
+
+                // delete products associated with the books
+                var productIdsToDelete = booksToDelete.Select(b => b.ProductID).ToList();
+                foreach (var productID in productIdsToDelete)
+                {
+                    var product = this.Products.SingleOrDefault(p => p.ID == productID);
+                    if (product != null)
+                    {
+                        this.Products.DeleteOnSubmit(product);
+                    }
+                }
+
+                // Delete the books
+                this.Books.DeleteAllOnSubmit(booksToDelete);
+                this.SubmitChanges();
+            }
+        }
+
+        public void DeleteProductsBy(Guid? ID = null, string name = null, decimal? price = null)
+        {
+            var roductsToDelete = this.Products.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                roductsToDelete = roductsToDelete.Where(p => p.ID == ID.Value);
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                roductsToDelete = roductsToDelete.Where(p => p.Name == name);
+            }
+            if (price.HasValue)
+            {
+                roductsToDelete = roductsToDelete.Where(p => p.Price == price.Value);
+            }
+
+            var productIdsToDelete = roductsToDelete.Select(p => p.ID).ToList();
+
+            if (productIdsToDelete.Any())
+            {
+                // Update associated States to nullify ProductID
+                var statesToUpdate = this.States.Where(s => productIdsToDelete.Contains(s.ProductID));
+                foreach (var state in statesToUpdate)
+                {
+                    var eventsToUpdate = this.Events.Where(e => e.StateID == state.ID);
+                    foreach (var eventInstance in eventsToUpdate)
+                    {
+                        eventInstance.StateID = null;
+                    }
+                    this.States.DeleteOnSubmit(state);
+                }
+
+                var bookIdsToDelete = this.Books.Where(b => productIdsToDelete.Contains(b.ProductID)).Select(b => b.ProductID).ToList();
+                if (bookIdsToDelete.Any())
+                {
+                    // Delete the books
+                    var booksToDelete = this.Books.Where(b => bookIdsToDelete.Contains(b.ProductID));
+                    this.Books.DeleteAllOnSubmit(booksToDelete);
+                }
+
+                // Delete the products
+                this.Products.DeleteAllOnSubmit(roductsToDelete);
+                this.SubmitChanges();
+            }
+        }
+
+        public void DeleteEventsBy(Guid? ID = null, Guid? userID = null, Guid? stateID = null,
+                          string eventType = null, int? amount = null)
+        {
+            var eventsToDelete = this.Events.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                eventsToDelete = eventsToDelete.Where(e => e.ID == ID.Value);
+            }
+            if (userID.HasValue)
+            {
+                eventsToDelete = eventsToDelete.Where(e => e.UserID == userID.Value);
+            }
+            if (stateID.HasValue)
+            {
+                eventsToDelete = eventsToDelete.Where(e => e.StateID == stateID.Value);
+            }
+            if (!string.IsNullOrEmpty(eventType))
+            {
+                eventsToDelete = eventsToDelete.Where(e => e.EventType == eventType);
+            }
+            if (amount.HasValue)
+            {
+                eventsToDelete = eventsToDelete.Where(e => e.Amount == amount.Value);
+            }
+
+            var eventIdsToDelete = eventsToDelete.Select(e => e.ID).ToList();
+
+            if (eventIdsToDelete.Any())
+            {
+                // Delete the events
+                this.Events.DeleteAllOnSubmit(eventsToDelete);
+                this.SubmitChanges();
+            }
+        }
+
+        public void DeleteStatesBy(Guid? ID = null, Guid? productID = null, int? quantity = null)
+        {
+            var statesToDelete = this.States.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                statesToDelete = statesToDelete.Where(s => s.ID == ID.Value);
+            }
+            if (productID.HasValue)
+            {
+                statesToDelete = statesToDelete.Where(s => s.ProductID == productID.Value);
+            }
+            if (quantity.HasValue)
+            {
+                statesToDelete = statesToDelete.Where(s => s.Quantity == quantity.Value);
+            }
+
+            var stateIdsToDelete = statesToDelete.Select(s => s.ID).ToList();
+
+            if (stateIdsToDelete.Any())
+            {
+                // Update associated Events to nullify StateID
+                var eventsToUpdate = this.Events.Where(e => stateIdsToDelete.Contains(e.StateID.Value));
+                foreach (var eventInstance in eventsToUpdate)
+                {
+                    eventInstance.StateID = null;
+                }
+
+                // Delete the states
+                this.States.DeleteAllOnSubmit(statesToDelete);
                 this.SubmitChanges();
             }
         }
