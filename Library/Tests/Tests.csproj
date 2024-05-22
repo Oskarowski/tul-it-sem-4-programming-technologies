@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net481</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -9,6 +9,14 @@
     <IsTestProject>true</IsTestProject>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+    <ItemGroup>
+	    <Reference Include="System" />
+	    <Reference Include="System.Data" />
+	    <Reference Include="System.Data.DataSetExtensions" />
+	    <Reference Include="System.Data.Linq" />
+	    <Reference Include="System.Xml" />
+    </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
@@ -24,6 +32,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
     <ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Instrumentation\Library.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

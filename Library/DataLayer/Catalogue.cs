@@ -86,7 +86,51 @@ namespace DataLayer
                 this.SubmitChanges();
             }
         }
-        
+
+        public void DeleteUsersBy(Guid? ID = null, string firstName = null,
+                          string lastName = null, string email = null,
+                          string phoneNumber = null)
+        {
+            var usersToDelete = this.Users.AsQueryable();
+
+            if (ID.HasValue)
+            {
+                usersToDelete = usersToDelete.Where(u => u.ID == ID.Value);
+            }
+            if (!string.IsNullOrEmpty(firstName))
+            {
+                usersToDelete = usersToDelete.Where(u => u.FirstName == firstName);
+            }
+            if (!string.IsNullOrEmpty(lastName))
+            {
+                usersToDelete = usersToDelete.Where(u => u.LastName == lastName);
+            }
+            if (!string.IsNullOrEmpty(email))
+            {
+                usersToDelete = usersToDelete.Where(u => u.Email == email);
+            }
+            if (!string.IsNullOrEmpty(phoneNumber))
+            {
+                usersToDelete = usersToDelete.Where(u => u.PhoneNumber == phoneNumber);
+            }
+
+            var userIdsToDelete = usersToDelete.Select(u => u.ID).ToList();
+
+            if (userIdsToDelete.Any())
+            {
+                // Update associated Events to nullify UserID
+                var eventsToUpdate = this.Events.Where(e => userIdsToDelete.Contains(e.UserID.Value));
+                foreach (var eventInstance in eventsToUpdate)
+                {
+                    eventInstance.UserID = null;
+                }
+
+                // Delete the users
+                this.Users.DeleteAllOnSubmit(usersToDelete);
+                this.SubmitChanges();
+            }
+        }
+
         public void DeleteBookById(Guid ID)
         {
             Book book = this.Books.SingleOrDefault(b => b.ProductID == ID);
@@ -158,10 +202,10 @@ namespace DataLayer
         #endregion
 
         #region Insert Methods
-        public void InsertUser(string firstName, string lastName, string email, string phoneNumber)
+        public void InsertUser(string firstName, string lastName, string email, string phoneNumber, Guid? ID = null)
         {
             User user = new User();
-            user.ID = Guid.NewGuid();
+            user.ID = ID ?? Guid.NewGuid();
             user.FirstName = firstName;
             user.LastName = lastName;
             user.Email = email;
@@ -173,10 +217,10 @@ namespace DataLayer
         }
 
         public void InsertBook(string name, decimal price, string author, 
-                    string publisher, int pages, DateTime publicationDate)
+                    string publisher, int pages, DateTime publicationDate, Guid? ID = null)
         {
             Product product = new Product();
-            product.ID = Guid.NewGuid();
+            product.ID = ID ?? Guid.NewGuid();
             product.Name = name;
             product.Price = price;
 
@@ -192,10 +236,10 @@ namespace DataLayer
             this.SubmitChanges();
         }
 
-        public void InsertEvent(Guid userID, Guid stateID, string eventType, int amount = 0)
+        public void InsertEvent(Guid userID, Guid stateID, string eventType, int? amount = null, Guid? ID = null)
         {
             Event @event = new Event();
-            @event.ID = Guid.NewGuid();
+            @event.ID = ID ?? Guid.NewGuid();
             @event.UserID = userID;
             @event.StateID = stateID;
             @event.EventType = eventType;
@@ -209,13 +253,13 @@ namespace DataLayer
                     throw new Exception("Amount must be greater than 0");
                 }
                 @event.Amount = amount;
-                state.Quantity += amount;          
+                state.Quantity += amount.Value;          
             }
             this.Events.InsertOnSubmit(@event);
             this.SubmitChanges();
         }
 
-        public void InsertState(Guid productID, int quantity)
+        public void InsertState(Guid productID, int quantity, Guid? ID = null)
         {
             State state = new State();
             state.ID = Guid.NewGuid();
