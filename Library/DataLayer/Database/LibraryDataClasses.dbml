@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PT" Class="LibraryDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Events" Member="Event">
+    <Type Name="Event">
+      <Column Name="guid" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="createdAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="userGuid" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="stateGuid" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.String" CanBeNull="false" />
+      <Association Name="State_Event" Member="State" Storage="_States" ThisKey="stateGuid" OtherKey="guid" Type="State" IsForeignKey="true" />
+      <Association Name="User_Event" Member="User" Storage="_Users" ThisKey="userGuid" OtherKey="guid" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Books" Member="Book">
+    <Type Name="Book">
+      <Column Name="guid" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="author" Type="System.String" DbType="NChar(30)" CanBeNull="false" />
+      <Column Name="publisher" Type="System.String" DbType="NChar(30)" CanBeNull="false" />
+      <Column Name="pages" Type="System.Int32" DbType="Int" CanBeNull="false" />
+      <Column Name="publicationDate" Type="System.DateTime" DbType="DATETIME" CanBeNull="false" />
+      <Association Name="Book_State" Member="State" Storage="_States" ThisKey="guid" OtherKey="guid" Type="State" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.States" Member="State">
+    <Type Name="State">
+      <Column Name="guid" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="productGuid" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="State_Event" Member="Event" Storage="_Events" ThisKey="guid" OtherKey="stateGuid" Type="Event" />
+      <Association Name="Book_State" Member="Book" Storage="_Books" ThisKey="guid" OtherKey="guid" Type="Book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="User">
+    <Type Name="User">
+      <Column Name="guid" Type="System.String" DbType="NChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="firstName" Type="System.String" DbType="NChar(10)" CanBeNull="false" />
+      <Column Name="lastName" Type="System.String" DbType="NChar(10)" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="NChar(10)" CanBeNull="false" />
+      <Column Name="balance" Type="System.Double" DbType="Float" CanBeNull="false" />
+      <Column Name="phoneNumber" Type="System.String" DbType="NChar(10)" CanBeNull="false" />
+      <Association Name="User_Event" Member="Event" Storage="_Events" ThisKey="guid" OtherKey="userGuid" Type="Event" />
+    </Type>
+  </Table>
+</Database>
