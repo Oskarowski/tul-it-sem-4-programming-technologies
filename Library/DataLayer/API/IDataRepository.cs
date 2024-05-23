@@ -6,40 +6,51 @@ namespace DataLayer.API
     {
         public void Seed(IDataFiller dataSeeder);
 
-        #region User
-        void AddUser(IUser user);
-        IUser GetUser(string guid);
-        List<IUser> GetAllUsers();
-        void RemoveUser(string guid);
-        bool DoesUserExist(string guid);
-        void UpdateUser(IUser updateUser);
+        #region User CRUD
+
+        Task AddUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber);
+        Task<IUser> GetUserAsync(string guid);
+        Task UpdateUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber);
+        Task DeleteUserAsync(string guid);
+        Task<Dictionary<string, IUser>> GetAllUsersAsync();
+        Task<int> GetUsersCountAsync();
+        
+        #endregion User CRUD
+
+
+        #region Product CRUD
+
+        Task AddProductAsync(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate);
+        Task<IBook> GetProductAsync(string guid);
+        Task UpdateProductAsync(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate);
+        Task DeleteProductAsync(string guid);
+        Task<Dictionary<string, IBook>> GetAllProductsAsync();
+        Task<int> GetProductsCountAsync();
+
         #endregion
 
-        #region Product
-        void AddProduct(IProduct product);
-        IProduct GetProduct(string guid);
-        List<IProduct> GetAllProducts();
-        IProduct GetProductByState(string stateGuid);
-        bool DoesProductExist(string guid);
 
-        void RemoveProduct(string guid);
+        #region State CRUD
+
+        Task AddStateAsync(string guid, string productGuid, int quantity);
+        Task<IState> GetStateAsync(string guid);
+        Task UpdateStateAsync(string guid, string productGuid, int quantity);
+        Task DeleteStateAsync(string guid);
+        Task<Dictionary<string, IState>> GetAllStatesAsync();
+        Task<int> GetStatesCountAsync();
+
         #endregion
 
-        #region Event
-        void AddEvent(IEvent @event);
-        IEvent GetEvent(string guid);
-        List<IEvent> GetAllEvents();
-        List<IEvent> GetEventsByUser(string userGuid);
-        List<IEvent> GetEventsByProduct(string productGuid);
-        List<IEvent> GetEventsByState(string stateGuid);
-        void RemoveEvent(string guid);
-        #endregion
 
-        #region State
-        void AddState(IState state);
-        IState GetState(string guid);
-        List<IState> GetAllStates();
-        void RemoveState(string guid);
+        #region Event CRUD
+
+        Task AddEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type);
+        Task<IEvent> GetEventAsync(string guid);
+        Task UpdateEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type);
+        Task DeleteEventAsync(string guid);
+        Task<Dictionary<string, IEvent>> GetAllEventsAsync();
+        Task<int> GetEventsCountAsync();
+
         #endregion
     }
 }

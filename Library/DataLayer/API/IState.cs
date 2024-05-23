@@ -2,9 +2,8 @@ namespace DataLayer.API
 {
     public interface IState
     {
-        IProduct Product { get; set; }
+        string Guid { get; set; }
         int Quantity { get; set; }
-        DateTime LastUpdatedDate { get; }
-        string Guid { get; }
+        string ProductGuid { get; set; }
     }
 }
