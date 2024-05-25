@@ -6,6 +6,11 @@ namespace DataLayer.API
     {
         public void Seed(IDataFiller dataSeeder);
 
+        static IDataRepository CreateDatabase(IDataContext? dataContext = null)
+        {
+            return DataRepository.NewInstance(dataContext ?? new DataContext());
+        }
+
         #region User CRUD
 
         Task AddUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber);
