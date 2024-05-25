@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Library\Pre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Library\Service\Service.csproj", "{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayerTests", "Library\ServiceLayerTests\ServiceLayerTests.csproj", "{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{E482E32E-3CA7-46DD-83C9-B094E0AD8BA3} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 		{C69FD601-389B-4CD1-A1FF-899261179F05} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8DC2F37-8FC7-433C-BA78-56CAE077B47B}
