@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Users]
 (
-	[guid] NCHAR(30) NOT NULL PRIMARY KEY, 
-    [firstName] NCHAR(10) NOT NULL, 
-    [lastName] NCHAR(10) NOT NULL, 
-    [email] NCHAR(10) NOT NULL, 
+	[guid] VARCHAR(36) NOT NULL PRIMARY KEY, 
+    [firstName] NVARCHAR(50) NOT NULL, 
+    [lastName] NVARCHAR(50) NOT NULL, 
+    [email] NVARCHAR(255) NOT NULL, 
     [balance] FLOAT NOT NULL, 
-    [phoneNumber] NCHAR(10) NOT NULL
+    [phoneNumber] NVARCHAR(15) NOT NULL
 )

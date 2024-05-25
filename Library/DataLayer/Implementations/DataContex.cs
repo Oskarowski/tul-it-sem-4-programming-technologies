@@ -18,7 +18,7 @@ namespace DataLayer.Implementations
             if (connectionString is null)
             {
                 string _projectRootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
-                string _DBRelativePath = @"DataLayer\Database\PT.mdf";
+                string _DBRelativePath = @"DataLayer\Database\Database.mdf";
                 string _DBPath = Path.Combine(_projectRootDir, _DBRelativePath);
                 this._connectionString = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_DBPath};Integrated Security = True; Connect Timeout = 30;";
             }

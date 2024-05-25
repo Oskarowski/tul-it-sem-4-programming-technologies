@@ -4,6 +4,11 @@ namespace DataLayer.API
 {
     public interface IDataRepository
     {
+        static IDataRepository NewInstance(IDataContext? dataContext = null)
+        {
+            return new DataRepository(dataContext ?? DataContext.NewInstance());
+        }
+
         public void Seed(IDataFiller dataSeeder);
 
         static IDataRepository CreateDatabase(IDataContext? dataContext = null)

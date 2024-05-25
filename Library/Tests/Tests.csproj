@@ -10,6 +10,12 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ServiceTests\**" />
+    <EmbeddedResource Remove="ServiceTests\**" />
+    <None Remove="ServiceTests\**" />
+  </ItemGroup>
+
   <!--<ItemGroup>
     <Compile Remove="Seeders\**" />
     <EmbeddedResource Remove="Seeders\**" />
@@ -37,10 +43,6 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ServiceTests\" />
   </ItemGroup>
 
 </Project>

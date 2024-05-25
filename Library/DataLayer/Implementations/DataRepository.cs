@@ -11,7 +11,7 @@ namespace DataLayer.Implementations
             return new DataRepository(dataContext ?? DataContext.NewInstance());
         }
 
-        private DataRepository(IDataContext dataContext)
+        public DataRepository(IDataContext dataContext)
         {
             _dataContext = dataContext;
         }

@@ -1,7 +1,13 @@
+using DataLayer.Implementations;
+
 namespace DataLayer.API
 {
     public interface IDataContext
     {
+        static IDataContext NewInstance(string? connectionString = null) {
+            return new DataContext(connectionString);
+        }
+
         #region User CRUD
 
         Task AddUserAsync(IUser user);
