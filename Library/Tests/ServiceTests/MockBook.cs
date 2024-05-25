@@ -9,7 +9,7 @@ namespace Tests.ServiceTests
 {
     internal class MockBook : IBook
     {
-        public MockBook(string guid, string name, string author, double price, string publisher, int pages, DateTime publicationDate)
+        public MockBook(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate)
         {
             Guid = guid;
             Name = name;

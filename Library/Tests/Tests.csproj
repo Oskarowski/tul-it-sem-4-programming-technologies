@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -9,6 +9,12 @@
     <IsTestProject>true</IsTestProject>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <!--<ItemGroup>
+    <Compile Remove="Seeders\**" />
+    <EmbeddedResource Remove="Seeders\**" />
+    <None Remove="Seeders\**" />
+  </ItemGroup>-->
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
@@ -21,10 +27,10 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-    <ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+		<ProjectReference Include="..\Service\Service.csproj" />
+    </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\README.md">

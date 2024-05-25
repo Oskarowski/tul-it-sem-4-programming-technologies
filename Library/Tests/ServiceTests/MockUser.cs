@@ -21,15 +21,15 @@ namespace Tests.ServiceTests
         }
 
         public string Guid { get; set; }
-        
+
         public string FirstName { get; set; }
-        
+
         public string LastName { get; set; }
-        
+
         public string Email { get; set; }
-        
+
         public double Balance { get; set; }
-        
+
         public string PhoneNumber { get; set; }
     }
 }

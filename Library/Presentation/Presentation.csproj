@@ -8,10 +8,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\API\" />
-    <Folder Include="Model\Implementation\" />
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-
 </Project>

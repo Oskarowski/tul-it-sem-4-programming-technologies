@@ -19,13 +19,13 @@ namespace Tests.ServiceTests
         }
 
         public string Guid { get; set; }
-        
+
         public string UserGuid { get; set; }
-        
+
         public string StateGuid { get; set; }
-        
+
         public string Type { get; set; }
-        
+
         public DateTime CreatedAt { get; set; }
     }
 }

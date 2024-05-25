@@ -1,5 +1,4 @@
 using DataLayer.API;
-using DataLayer.Implementations.Events;
 
 namespace LogicLayer.API
 {
