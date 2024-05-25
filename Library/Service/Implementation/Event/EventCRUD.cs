@@ -24,7 +24,8 @@ namespace Service.Implementation
                                     @event.CreatedAt, @event.Type);
         }
 
-        public async Task AddEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type)
+        public async Task AddEventAsync(string guid, string stateGuid, string userGuid,
+                                            DateTime createdAt, string type)
         {
             await _dataRepository.AddEventAsync(guid, stateGuid, userGuid, createdAt, type);
         }
@@ -34,7 +35,8 @@ namespace Service.Implementation
             return Map(await _dataRepository.GetEventAsync(guid));
         }
 
-        public async Task UpdateEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type)
+        public async Task UpdateEventAsync(string guid, string stateGuid, string userGuid,
+                                            DateTime createdAt, string type)
         {
             await _dataRepository.UpdateEventAsync(guid, stateGuid, userGuid, createdAt, type);
         }

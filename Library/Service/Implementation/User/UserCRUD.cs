@@ -19,10 +19,12 @@ namespace Service.Implementation
 
         public IUserDTO Map(IUser user)
         {
-            return new UserDTO(user.Guid, user.FirstName, user.LastName, user.Email, user.Balance, user.PhoneNumber);
+            return new UserDTO(user.Guid, user.FirstName, user.LastName,
+                                user.Email, user.Balance, user.PhoneNumber);
         }
 
-        public async Task AddUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
+        public async Task AddUserAsync(string guid, string firstName, string lastName,
+                                        string email, double balance, string phoneNumber)
         {
             await _dataRepository.AddUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
         }
@@ -32,7 +34,8 @@ namespace Service.Implementation
             return Map(await _dataRepository.GetUserAsync(guid));
         }
 
-        public async Task UpdateUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
+        public async Task UpdateUserAsync(string guid, string firstName, string lastName,
+                                            string email, double balance, string phoneNumber)
         {
             await _dataRepository.UpdateUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
         }
