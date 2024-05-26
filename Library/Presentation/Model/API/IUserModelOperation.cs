@@ -1,4 +1,5 @@
-﻿using Service.API;
+﻿using PresentationLayer.Implementation;
+using Service.API;
 using Service.Implementation;
 
 namespace PresentationLayer.Model.API
@@ -7,7 +8,7 @@ namespace PresentationLayer.Model.API
     {
         static IUserModelOperation CreateModelOperation(IUserCRUD? userCrud = null)
         {
-            return new UserModelOperation(userCrud) ?? IUserCRUD.CreateUserCRUD();
+            return new UserModelOperation(userCrud);
         }
 
         Task AddAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber);

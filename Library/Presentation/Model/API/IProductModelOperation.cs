@@ -1,4 +1,5 @@
-﻿using Service.API;
+﻿using PresentationLayer.Implementation;
+using Service.API;
 
 namespace PresentationLayer.Model.API
 {
@@ -6,7 +7,7 @@ namespace PresentationLayer.Model.API
     {
         static IProductModelOperation CreateModelOperation(IProductCRUD? productCrud = null)
         {
-            return new ProductModelOperation(productCrud ?? IProductCRUD.CreateProductCRUD());
+            return new ProductModelOperation(productCrud ?? IProductCRUD.CreateBookCRUD());
         }
 
         Task AddAsync(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate);
