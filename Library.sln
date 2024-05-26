@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "Library\DataLa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B858A003-F5DD-4F95-99D9-5A7560A0B8CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "Library\Presentation\Presentation.csproj", "{C69FD601-389B-4CD1-A1FF-899261179F05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer", "Library\Presentation\PresentationLayer.csproj", "{C69FD601-389B-4CD1-A1FF-899261179F05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceLayerTests", "Library\ServiceLayerTests\ServiceLayerTests.csproj", "{0AB5386A-930A-4A24-A6E5-ED00D8E5355E}"
 EndProject
