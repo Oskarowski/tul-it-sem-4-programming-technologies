@@ -15,23 +15,19 @@
     <Grid Background="Black">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="200*"/>
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="265*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Image
-                Source="/Assets/AppLogo.jpg" 
-                Height="412" Width="411" Opacity="0.4"
+                Source="/Assets/AppLogo.jpg" Height="480" Width="800" Opacity="0.4"
                 />
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" 
-                    HorizontalAlignment="Center" Margin="0,181,0,181">
+        <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0">
             <Button 
                 Height="40" Width="140" Margin="0,15,0,0" 
                 Name="startButton" Content="Start"
