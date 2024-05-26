@@ -2,17 +2,17 @@
 using System;
 
 
-namespace PresentationLayer.Implementation
+namespace PresentationLayer.Model.Implementation
 {
     internal class EventModel : IEventModel
     {
         public EventModel(string guid, string stateGuid, string userGuid, DateTime createdAt, string type)
         {
-            this.Guid = guid;
-            this.StateGuid = stateGuid;
-            this.UserGuid = userGuid;
-            this.CreatedAt = createdAt;
-            this.Type = type;
+            Guid = guid;
+            StateGuid = stateGuid;
+            UserGuid = userGuid;
+            CreatedAt = createdAt;
+            Type = type;
         }
 
         public string Guid { get; set; }

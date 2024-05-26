@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PresentationLayer.Implementation
+namespace PresentationLayer.Model.Implementation
 {
     internal class StateModelOperation : IStateModelOperation
     {
@@ -14,7 +14,7 @@ namespace PresentationLayer.Implementation
 
         public StateModelOperation(IStateCRUD? stateCrud = null)
         {
-            this._stateCrud = stateCrud ?? IStateCRUD.CreateStateCRUD();
+            _stateCrud = stateCrud ?? IStateCRUD.CreateStateCRUD();
         }
 
         private IStateModel Map(IStateDTO state)
@@ -24,31 +24,31 @@ namespace PresentationLayer.Implementation
 
         public async Task AddAsync(string guid, string productGuid, int quantity)
         {
-            await this._stateCrud.AddStateAsync(guid, productGuid, quantity);
+            await _stateCrud.AddStateAsync(guid, productGuid, quantity);
         }
 
         public async Task<IStateModel> GetAsync(string guid)
         {
-            return this.Map(await this._stateCrud.GetStateAsync(guid));
+            return Map(await _stateCrud.GetStateAsync(guid));
         }
 
         public async Task UpdateAsync(string guid, string productGuid, int quantity)
         {
-            await this._stateCrud.UpdateStateAsync(guid, productGuid, quantity);
+            await _stateCrud.UpdateStateAsync(guid, productGuid, quantity);
         }
 
         public async Task DeleteAsync(string guid)
         {
-            await this._stateCrud.DeleteStateAsync(guid);
+            await _stateCrud.DeleteStateAsync(guid);
         }
 
         public async Task<Dictionary<string, IStateModel>> GetAllAsync()
         {
             Dictionary<string, IStateModel> result = new Dictionary<string, IStateModel>();
 
-            foreach (IStateDTO state in (await this._stateCrud.GetAllStatesAsync()).Values)
+            foreach (IStateDTO state in (await _stateCrud.GetAllStatesAsync()).Values)
             {
-                result.Add(state.Guid, this.Map(state));
+                result.Add(state.Guid, Map(state));
             }
 
             return result;
@@ -56,7 +56,7 @@ namespace PresentationLayer.Implementation
 
         public async Task<int> GetCountAsync()
         {
-            return await this._stateCrud.GetStatesCountAsync();
+            return await _stateCrud.GetStatesCountAsync();
         }
     }
 }

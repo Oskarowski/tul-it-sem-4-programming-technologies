@@ -1,7 +1,7 @@
 ﻿using PresentationLayer.Model.API;
 using Service.API;
 
-namespace PresentationLayer.Implementation
+namespace PresentationLayer.Model.Implementation
 {
     internal class ProductModel : IProductModel
     {

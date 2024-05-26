@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PresentationLayer.Implementation
+namespace PresentationLayer.Model.Implementation
 {
     internal class UserModel : IUserModel
     {

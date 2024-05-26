@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PresentationLayer.Implementation
+namespace PresentationLayer.Model.Implementation
 {
     internal class UserModelOperation : IUserModelOperation
     {
@@ -14,7 +14,7 @@ namespace PresentationLayer.Implementation
 
         public UserModelOperation(IUserCRUD? userCrud)
         {
-            this._userCRUD = userCrud ?? IUserCRUD.CreateUserCRUD();
+            _userCRUD = userCrud ?? IUserCRUD.CreateUserCRUD();
         }
 
         private IUserModel Map(IUserDTO user)
@@ -24,31 +24,31 @@ namespace PresentationLayer.Implementation
 
         public async Task AddAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
         {
-            await this._userCRUD.AddUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
+            await _userCRUD.AddUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
         }
 
         public async Task<IUserModel> GetAsync(string guid)
         {
-            return this.Map(await this._userCRUD.GetUserAsync(guid));
+            return Map(await _userCRUD.GetUserAsync(guid));
         }
 
         public async Task UpdateAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
         {
-            await this._userCRUD.UpdateUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
+            await _userCRUD.UpdateUserAsync(guid, firstName, lastName, email, balance, phoneNumber);
         }
 
         public async Task DeleteAsync(string guid)
         {
-            await this._userCRUD.DeleteUserAsync(guid);
+            await _userCRUD.DeleteUserAsync(guid);
         }
 
         public async Task<Dictionary<string, IUserModel>> GetAllAsync()
         {
             Dictionary<string, IUserModel> result = new Dictionary<string, IUserModel>();
 
-            foreach (IUserDTO user in (await this._userCRUD.GetAllUsersAsync()).Values)
+            foreach (IUserDTO user in (await _userCRUD.GetAllUsersAsync()).Values)
             {
-                result.Add(user.Guid, this.Map(user));
+                result.Add(user.Guid, Map(user));
             }
 
             return result;
@@ -56,7 +56,7 @@ namespace PresentationLayer.Implementation
 
         public async Task<int> GetCountAsync()
         {
-            return await this._userCRUD.GetUsersCountAsync();
+            return await _userCRUD.GetUsersCountAsync();
         }
     }
 }
