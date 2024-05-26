@@ -1,8 +1,8 @@
-﻿using PresentationLayer.Implementation;
+﻿using Presentation.Model.Implementation;
 using Service.API;
 using Service.Implementation;
 
-namespace PresentationLayer.Model.API
+namespace Presentation.Model.API
 {
     public interface IUserModelOperation
     {

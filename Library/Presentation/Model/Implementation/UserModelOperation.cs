@@ -1,4 +1,4 @@
-﻿using PresentationLayer.Model.API;
+﻿using Presentation.Model.API;
 using Service.API;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PresentationLayer.Model.Implementation
+namespace Presentation.Model.Implementation
 {
     internal class UserModelOperation : IUserModelOperation
     {

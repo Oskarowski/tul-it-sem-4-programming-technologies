@@ -1,4 +1,4 @@
-﻿namespace PresentationLayer.Model.API
+﻿namespace Presentation.Model.API
 {
     public interface IStateModel
     {

@@ -1,8 +1,8 @@
-﻿using PresentationLayer.Model.API;
+﻿using Presentation.Model.API;
 using System;
 
 
-namespace PresentationLayer.Model.Implementation
+namespace Presentation.Model.Implementation
 {
     internal class EventModel : IEventModel
     {
