@@ -1,5 +1,4 @@
 ﻿using Presentation.Model.API;
-using Presentation.ViewModel;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
@@ -7,7 +6,7 @@ using Presentationion.ViewModel;
 
 namespace Presentation.ViewModel
 {
-    internal class UserMasterViewModel : IViewModel, IUserMasterViewModel
+    public class UserMasterViewModel : IViewModel, IUserMasterViewModel
     {
         public ICommand SwitchToProductMasterPage { get; set; }
 

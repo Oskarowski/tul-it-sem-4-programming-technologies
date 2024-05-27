@@ -1,4 +1,5 @@
 using DataLayer.API;
+using DataLayer.Database;
 
 namespace DataLayer.Implementations
 {
@@ -220,12 +221,36 @@ namespace DataLayer.Implementations
                     Dictionary<string, IEvent> events = await GetAllEventsAsync();
                     Dictionary<string, IState> states = await GetAllStatesAsync();
 
-                    // TODO 
+                    int copiesBought = 0;
+
+                    foreach
+                    (
+                        IEvent even in
+                        from evennt in events.Values
+                        from statee in states.Values
+                        where evennt.UserGuid == user.Guid &&
+                              evennt.StateGuid == statee.Guid &&
+                              statee.ProductGuid == product.Guid
+                        select evennt
+                    )
+                        if (even.Type == "PurchaseEvent")
+                            copiesBought++;
+                        else if (even.Type == "ReturnEvent")
+                            copiesBought--;
+
+                    copiesBought--;
+
+                    if (copiesBought < 0)
+                    {
+                        throw new Exception("You do not own this product!");
+                    }
+
+                    await UpdateStateAsync(stateGuid, product.Guid, state.Quantity + 1);
 
                     break;
                 case "SupplyEvent":
-                    
-                    // TODO
+
+                    await this.UpdateStateAsync(stateGuid, product.Guid, state.Quantity + 1);
 
                     break;
 
