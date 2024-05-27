@@ -120,6 +120,21 @@
                 </Validation.ErrorTemplate>
             </TextBox>
 
+            <Label Content="Pages:" FontSize="10"/>
+            <TextBox Height="20" Width="120" Margin="50,0,10,0"
+             Text="{Binding Pages, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+             TextWrapping="Wrap"
+             BorderBrush="Gray">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
             <Label Content="Publisher:" FontSize="10"/>
             <TextBox Height="20" Width="120" Margin="50,0,10,0"
                          Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
@@ -151,7 +166,7 @@
             </TextBox>
 
         </StackPanel>
-        <Button Content="Create" Margin="46,287,46,99" Background="CornflowerBlue"
+        <Button Content="Create" Margin="46,329,46,57" Background="CornflowerBlue"
                         Command="{Binding CreateProduct}" Grid.Column="1" Grid.Row="1"/>
         <Label Margin="0,20,0,506"
                        HorizontalAlignment="Center"

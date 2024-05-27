@@ -165,8 +165,8 @@ namespace Presentation.ViewModel
             return !(
                 string.IsNullOrWhiteSpace(this.Name) ||
                 string.IsNullOrWhiteSpace(this.Price.ToString()) ||
-                string.IsNullOrWhiteSpace(this.Author.ToString()) ||
-                string.IsNullOrWhiteSpace(this.Publisher.ToString()) ||
+                string.IsNullOrWhiteSpace(this.Author) ||
+                string.IsNullOrWhiteSpace(this.Publisher) ||
                 string.IsNullOrWhiteSpace(this.Pages.ToString()) ||
                 string.IsNullOrWhiteSpace(this.PublicationDate.ToString()) ||
                 this.Price <= 0 ||
