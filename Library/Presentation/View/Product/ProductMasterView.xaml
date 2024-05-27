@@ -11,7 +11,8 @@
     <UserControl.DataContext>
         <ObjectDataProvider ObjectType="viewmodels:ProductMasterViewModel">
             <ObjectDataProvider.ConstructorParameters>
-              
+                <x:Null/>
+                <x:Null/>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </UserControl.DataContext>
