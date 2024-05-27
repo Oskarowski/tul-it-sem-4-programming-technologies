@@ -4,18 +4,17 @@ namespace DataLayer.Implementations
 {
     public class User : IUser
     {
-        public User(string firstName, string lastName, string email, double balance, int phoneNumber, Dictionary<string, IProduct>? productsDic)
+        public User(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
         {
-            Guid = System.Guid.NewGuid().ToString();
+            Guid = string.IsNullOrEmpty(guid) ? System.Guid.NewGuid().ToString() : guid;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             Balance = balance;
             PhoneNumber = phoneNumber;
-            ProductsDic = productsDic ?? new Dictionary<string, IProduct>();
         }
 
-        public string Guid { get; }
+        public string Guid { get; set; }
 
         public string FirstName { get; set; }
 
@@ -25,8 +24,6 @@ namespace DataLayer.Implementations
 
         public double Balance { get; set; }
 
-        public int PhoneNumber { get; set; }
-
-        public Dictionary<string, IProduct> ProductsDic { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

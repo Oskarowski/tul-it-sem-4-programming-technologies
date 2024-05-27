@@ -262,7 +262,6 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # SQL Server files
-*.mdf
 *.ldf
 *.ndf
 
@@ -416,3 +415,5 @@ FodyWeavers.xsd
 *.vsix
 
 test_results.txt
+/Library/Tests/Instrumentation/Library.mdf
+/run_tests.sh

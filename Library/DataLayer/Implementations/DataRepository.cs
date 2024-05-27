@@ -1,4 +1,5 @@
 using DataLayer.API;
+using DataLayer.Database;
 
 namespace DataLayer.Implementations
 {
@@ -6,11 +7,12 @@ namespace DataLayer.Implementations
     {
         private IDataContext _dataContext;
 
-        public static IDataRepository NewInstance(IDataContext dataContext)
+        public static IDataRepository NewInstance(IDataContext? dataContext = null)
         {
-            return new DataRepository(dataContext);
+            return new DataRepository(dataContext ?? DataContext.NewInstance());
         }
-        private DataRepository(IDataContext dataContext)
+
+        public DataRepository(IDataContext dataContext)
         {
             _dataContext = dataContext;
         }
@@ -19,159 +21,304 @@ namespace DataLayer.Implementations
         {
             foreach (IUser user in dataSeeder.GetGeneratedUsers())
             {
-                AddUser(user);
+                // TODO
             }
             foreach (IState state in dataSeeder.GetGeneratedStates())
             {
-                AddState(state);
+                // TODO
             }
             foreach (IProduct product in dataSeeder.GetGeneratedProducts())
             {
-                AddProduct(product);
+                // TODO
             }
             foreach (IEvent @event in dataSeeder.GetGeneratedEvents())
             {
-                AddEvent(@event);
+                // TODO
             }
         }
 
-        #region User
-        public void AddUser(IUser user)
+        #region User CRUD
+
+        public async Task AddUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
         {
-            _dataContext.Users.Add(user);
+            IUser user = new User(guid, firstName, lastName, email, balance, phoneNumber);
+
+            await _dataContext.AddUserAsync(user);
         }
-        public IUser GetUser(string guid)
+
+        public async Task<IUser> GetUserAsync(string guid)
         {
-            IUser? user = _dataContext.Users.FirstOrDefault(u => u.Guid == guid) ?? throw new Exception("User does not exist");
+            IUser? user = await _dataContext.GetUserAsync(guid) ?? throw new Exception("This user does not exist!");
 
             return user;
         }
-        public List<IUser> GetAllUsers()
-        {
-            return _dataContext.Users;
-        }
-        public void RemoveUser(string guid)
-        {
-            IUser user = _dataContext.Users.FirstOrDefault(user => user.Guid == guid) ?? throw new Exception("User does not exist");
 
-            _dataContext.Users.Remove(user);
-        }
-        public bool DoesUserExist(string guid)
+        public async Task UpdateUserAsync(string guid, string firstName, string lastName, string email, double balance, string phoneNumber)
         {
-            return _dataContext.Users.Exists(e => e.Guid == guid);
+            IUser user = new User(guid, firstName, lastName, email, balance, phoneNumber);
+
+            if (!await CheckIfUserExists(user.Guid))
+                throw new Exception("This user does not exist");
+
+            await _dataContext.UpdateUserAsync(user);
         }
-        public void UpdateUser(IUser updateUser)
+
+        public async Task DeleteUserAsync(string guid)
         {
-            IUser? userToBeUpdated = _dataContext.Users.FirstOrDefault(u => u.Guid == updateUser.Guid);
+            if (!await CheckIfUserExists(guid))
+                throw new Exception("This user does not exist");
 
-            if (userToBeUpdated == null)
-            {
-                throw new Exception("Cannot update user that does not exist");
-            }
+            await _dataContext.DeleteUserAsync(guid);
+        }
 
-            userToBeUpdated = updateUser;
+        public async Task<Dictionary<string, IUser>> GetAllUsersAsync()
+        {
+            return await _dataContext.GetAllUsersAsync();
+        }
+
+        public async Task<int> GetUsersCountAsync()
+        {
+            return await _dataContext.GetUsersCountAsync();
         }
 
         #endregion
 
-        #region Product
-        public void AddProduct(IProduct product)
+
+        #region Product CRUD
+
+        public async Task AddProductAsync(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate)
         {
-            _dataContext.Products.Add(product);
+            IBook product = new Book(guid, name, price, author, publisher, pages, publicationDate);
+
+            await _dataContext.AddProductAsync(product);
         }
-        public IProduct GetProduct(string guid)
+
+        public async Task<IBook> GetProductAsync(string guid)
         {
-            IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
+            IBook? product = await _dataContext.GetProductAsync(guid);
+
+            if (product is null)
+                throw new Exception("This product does not exist!");
 
             return product;
         }
-        public List<IProduct> GetAllProducts()
-        {
-            return _dataContext.Products;
-        }
-        public IProduct GetProductByState(string stateGuid)
-        {
-            IProduct? product = _dataContext.States.FirstOrDefault(state => state.Guid == stateGuid)?.Product;
-            if (product == null)
-            {
-                throw new Exception("Product does not exist");
-            }
 
-            return product;
-        }
-        public bool DoesProductExist(string guid)
+        public async Task UpdateProductAsync(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate)
         {
-            return _dataContext.Products.Exists(e => e.Guid == guid);
-        }
-        public void RemoveProduct(string guid)
-        {
-            IProduct product = _dataContext.Products.FirstOrDefault(product => product.Guid == guid) ?? throw new Exception("Product does not exist");
+            IBook product = new Book(guid, name, price, author, publisher, pages, publicationDate);
 
-            _dataContext.Products.Remove(product);
+            if (!await CheckIfProductExists(product.Guid))
+                throw new Exception("This product does not exist");
+
+            await _dataContext.UpdateProductAsync(product);
         }
+
+        public async Task DeleteProductAsync(string guid)
+        {
+            if (!await CheckIfProductExists(guid))
+                throw new Exception("This product does not exist");
+
+            await _dataContext.DeleteProductAsync(guid);
+        }
+
+        public async Task<Dictionary<string, IBook>> GetAllProductsAsync()
+        {
+            return await _dataContext.GetAllProductsAsync();
+        }
+
+        public async Task<int> GetProductsCountAsync()
+        {
+            return await _dataContext.GetProductsCountAsync();
+        }
+
         #endregion
 
-        #region Event
-        public void AddEvent(IEvent @event)
-        {
-            _dataContext.Events.Add(@event);
-        }
-        public IEvent GetEvent(string guid)
-        {
-            IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
 
-            return @event;
-        }
-        public List<IEvent> GetAllEvents()
-        {
-            return _dataContext.Events;
-        }
-        public List<IEvent> GetEventsByUser(string userGuid)
-        {
-            List<IEvent> events = _dataContext.Events.Where(@event => @event.User.Guid == userGuid).ToList();
+        #region State CRUD
 
-            return events;
-        }
-        public List<IEvent> GetEventsByProduct(string productGuid)
+        public async Task AddStateAsync(string guid, string productGuid, int quantity)
         {
-            List<IEvent> events = _dataContext.Events.Where(@event => @event.State.Product.Guid == productGuid).ToList();
+            if (!await _dataContext.CheckIfProductExists(productGuid))
+                throw new Exception("This product does not exist!");
 
-            return events;
-        }
-        public List<IEvent> GetEventsByState(string stateGuid)
-        {
-            List<IEvent> events = _dataContext.Events.Where(@event => @event.State.Guid == stateGuid).ToList();
+            if (quantity < 0)
+                throw new Exception("Product's quantity must be number greater that 0!");
 
-            return events;
-        }
-        public void RemoveEvent(string guid)
-        {
-            IEvent @event = _dataContext.Events.FirstOrDefault(@event => @event.Guid == guid) ?? throw new Exception("Event does not exist");
+            IState state = new State(guid, productGuid, quantity);
 
-            _dataContext.Events.Remove(@event);
+            await _dataContext.AddStateAsync(state);
         }
-        #endregion
 
-        #region State
-        public void AddState(IState state)
+        public async Task<IState> GetStateAsync(string guid)
         {
-            _dataContext.States.Add(state);
-        }
-        public List<IState> GetAllStates()
-        {
-            return _dataContext.States;
-        }
-        public IState GetState(string guid)
-        {
-            IState state = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
+            IState? state = await _dataContext.GetStateAsync(guid);
+
+            if (state is null)
+                throw new Exception("This state does not exist!");
 
             return state;
         }
-        public void RemoveState(string guid)
-        {
-            IState state = _dataContext.States.FirstOrDefault(state => state.Guid == guid) ?? throw new Exception("State does not exist");
 
-            _dataContext.States.Remove(state);
+        public async Task UpdateStateAsync(string guid, string productGuid, int quantity)
+        {
+            if (!await _dataContext.CheckIfProductExists(productGuid))
+                throw new Exception("This product does not exist!");
+
+            if (quantity <= 0)
+                throw new Exception("Product's quantity must be number greater that 0!");
+
+            IState state = new State(guid, productGuid, quantity);
+
+            if (!await CheckIfStateExists(state.Guid))
+                throw new Exception("This state does not exist");
+
+            await _dataContext.UpdateStateAsync(state);
+        }
+
+        public async Task DeleteStateAsync(string guid)
+        {
+            if (!await CheckIfStateExists(guid))
+                throw new Exception("This state does not exist");
+
+            await _dataContext.DeleteStateAsync(guid);
+        }
+
+        public async Task<Dictionary<string, IState>> GetAllStatesAsync()
+        {
+            return await _dataContext.GetAllStatesAsync();
+        }
+
+        public async Task<int> GetStatesCountAsync()
+        {
+            return await _dataContext.GetStatesCountAsync();
+        }
+
+        #endregion
+
+
+        #region Event CRUD
+
+        public async Task AddEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type)
+        {
+            IUser user = await GetUserAsync(userGuid);
+            IState state = await GetStateAsync(stateGuid);
+            IProduct product = await GetProductAsync(state.ProductGuid);
+
+            IEvent newEvent = new Event( guid,  stateGuid,  userGuid,  createdAt,  type);
+
+            switch (type)
+            {
+                case "RentEvent":
+                    if (state.Quantity == 0)
+                        throw new Exception("Such Product can't be rented!");
+
+                    await UpdateStateAsync(stateGuid, product.Guid, state.Quantity - 1);
+                    await UpdateUserAsync(userGuid, user.FirstName, user.LastName, user.Email, user.Balance, user.PhoneNumber);
+
+                    break;
+
+                case "ReturnEvent":
+                    Dictionary<string, IEvent> events = await GetAllEventsAsync();
+                    Dictionary<string, IState> states = await GetAllStatesAsync();
+
+                    int copiesBought = 0;
+
+                    foreach
+                    (
+                        IEvent even in
+                        from evennt in events.Values
+                        from statee in states.Values
+                        where evennt.UserGuid == user.Guid &&
+                              evennt.StateGuid == statee.Guid &&
+                              statee.ProductGuid == product.Guid
+                        select evennt
+                    )
+                        if (even.Type == "PurchaseEvent")
+                            copiesBought++;
+                        else if (even.Type == "ReturnEvent")
+                            copiesBought--;
+
+                    copiesBought--;
+
+                    if (copiesBought < 0)
+                    {
+                        throw new Exception("You do not own this product!");
+                    }
+
+                    await UpdateStateAsync(stateGuid, product.Guid, state.Quantity + 1);
+
+                    break;
+                case "SupplyEvent":
+
+                    await this.UpdateStateAsync(stateGuid, product.Guid, state.Quantity + 1);
+
+                    break;
+
+                default:
+                    throw new Exception("This Event Type is not handled");
+            }
+
+            await _dataContext.AddEventAsync(newEvent);
+        }
+
+        public async Task<IEvent> GetEventAsync(string guid)
+        {
+            IEvent? even = await _dataContext.GetEventAsync(guid);
+
+            return even is null ? throw new Exception("This event does not exist!") : even;
+        }
+
+        public async Task UpdateEventAsync(string guid, string stateGuid, string userGuid, DateTime createdAt, string type)
+        {
+            IEvent newEvent = new Event(guid, stateGuid, userGuid, createdAt, type);
+
+            if (!await CheckIfEventExists(newEvent.Guid, type))
+                throw new Exception("This event does not exist");
+
+            await _dataContext.UpdateEventAsync(newEvent);
+        }
+
+        public async Task DeleteEventAsync(string guid)
+        {
+            if (!await CheckIfEventExists(guid, "RentEvent"))
+                throw new Exception("This event does not exist");
+
+            await _dataContext.DeleteEventAsync(guid);
+        }
+
+        public async Task<Dictionary<string, IEvent>> GetAllEventsAsync()
+        {
+            return await _dataContext.GetAllEventsAsync();
+        }
+
+        public async Task<int> GetEventsCountAsync()
+        {
+            return await _dataContext.GetEventsCountAsync();
+        }
+
+        #endregion
+
+
+        #region Utils
+
+        public async Task<bool> CheckIfUserExists(string guid)
+        {
+            return await _dataContext.CheckIfUserExists(guid);
+        }
+
+        public async Task<bool> CheckIfProductExists(string guid)
+        {
+            return await _dataContext.CheckIfProductExists(guid);
+        }
+
+        public async Task<bool> CheckIfStateExists(string guid)
+        {
+            return await _dataContext.CheckIfStateExists(guid);
+        }
+
+        public async Task<bool> CheckIfEventExists(string guid, string type)
+        {
+            return await _dataContext.CheckIfEventExists(guid, type);
         }
         #endregion
     }

@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="Presentation.View.StateMasterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Presentation.View;assembly=Presentation"
+             xmlns:view="clr-namespace:Presentation.View"
+             xmlns:viewmodels="clr-namespace:Presentation.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="800" Height="480">
+
+    <UserControl.DataContext>
+        <ObjectDataProvider ObjectType="viewmodels:StateMasterViewModel">
+            <ObjectDataProvider.ConstructorParameters>
+                <x:Null/>
+                <x:Null/>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
+    </UserControl.DataContext>
+
+    <Grid Background="White" Margin="0,0,0,10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="375*"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="265*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" 
+                    Width="570" Margin="0,5,0,0"
+                    HorizontalAlignment="Left"
+                    Background="White" Height="500" VerticalAlignment="Top" Grid.RowSpan="2">
+            <Grid Height="500" Margin="10,5,10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202*"/>
+                    <ColumnDefinition Width="73*"/>
+                </Grid.ColumnDefinitions>
+                <ListView Margin="0,40,94,10" 
+                    ItemsSource="{Binding States, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedDetailViewModel}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                    >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Id" Width="140" DisplayMemberBinding="{Binding Guid}" />
+                            <GridViewColumn Header="Product ID" Width="140" DisplayMemberBinding="{Binding ProductGuid}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid Grid.ColumnSpan="2" Visibility="{Binding IsStateDetailVisible}" Margin="0,0,0,0">
+                    <view:StateDetailView
+                        Margin="330,0,0,50"
+                        DataContext="{Binding SelectedDetailViewModel}"
+                        />
+                    <Button Content="Delete" Background="IndianRed" HorizontalAlignment="Left" Margin="395,265,0,0" VerticalAlignment="Top" Height="26" Width="90"
+                        Command="{Binding RemoveState}"/>
+                </Grid>
+                <Button Content="Create" Margin="-171,308,492,44" Background="CornflowerBlue"
+                    Command="{Binding CreateState}"/>
+            </Grid>
+            <Grid Height="100"/>
+        </StackPanel>
+        <Button Grid.Column="2" Content="Users" HorizontalAlignment="Left" Margin="119,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
+                Command="{Binding SwitchToUserMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        <Button Grid.Column="2" Content="Events" HorizontalAlignment="Left" Margin="240,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
+                Command="{Binding SwitchToEventMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        <Button Grid.Column="2" Content="Products" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top" Width="90" Height="38" Grid.RowSpan="2"
+            Command="{Binding SwitchToProductMasterPage}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+        <StackPanel Margin="0,52,0,0"
+                    VerticalAlignment="Top"
+                    Background="White" Height="277" Grid.Column="1" Grid.Row="1">
+
+            <Label Content="Product ID:" FontSize="10"/>
+            <TextBox Height="20" Width="120" Margin="50,0,10,0"
+                         Text="{Binding ProductGuid, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         TextWrapping="Wrap"
+                         BorderBrush="Gray">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+            <Label Content="Product Quantity:" FontSize="10"/>
+            <TextBox Height="20" Width="120" Margin="50,0,10,0"
+                         Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         TextWrapping="Wrap"
+                         BorderBrush="Gray">
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder"/>
+                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
+        </StackPanel>
+        <Button Content="Create" Margin="0,155,0,246" Background="LightYellow"
+                        Command="{Binding CreateState}" Grid.Column="1" Grid.Row="1"/>
+        <Label Margin="0,20,0,403"
+                       HorizontalAlignment="Center"
+                       Content="States:" FontSize="15" Width="140" Grid.Column="1" Grid.RowSpan="2"/>
+
+    </Grid>
+</UserControl>
