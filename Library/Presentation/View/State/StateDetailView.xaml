@@ -72,6 +72,6 @@
             </StackPanel>
         </GroupBox>
         <Button Content="Update" Background="Green" HorizontalAlignment="Center" Margin="0,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.227,0.242" Height="26" Width="90"
-            Command="{Binding UpdateProduct}"/>
+            Command="{Binding UpdateState}"/>
     </Grid>
 </UserControl>
