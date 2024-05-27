@@ -74,20 +74,6 @@
         <StackPanel Margin="0,52,0,0"
                     VerticalAlignment="Top"
                     Background="White" Height="277" Grid.Column="1" Grid.Row="1">
-            <Label Content="First Name:" FontSize="10"/>
-            <TextBox Height="20" Width="120" Margin="50,0,10,0"
-                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                         TextWrapping="Wrap"
-                         BorderBrush="Gray">
-                <Validation.ErrorTemplate>
-                    <ControlTemplate>
-                        <StackPanel>
-                            <AdornedElementPlaceholder x:Name="placeholder"/>
-                            <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Validation.ErrorTemplate>
-            </TextBox>
 
             <Label Content="Name:" FontSize="10"/>
             <TextBox Height="20" Width="120" Margin="50,0,10,0"
