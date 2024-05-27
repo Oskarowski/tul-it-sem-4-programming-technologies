@@ -130,24 +130,24 @@ namespace Presentation.ViewModel
         private bool CanPurchaseEvent()
         {
             return !(
-                string.IsNullOrWhiteSpace(this.StateGuid.ToString()) ||
-                string.IsNullOrWhiteSpace(this.UserGuid.ToString())
+                string.IsNullOrWhiteSpace(this.StateGuid) ||
+                string.IsNullOrWhiteSpace(this.UserGuid)
             );
         }
 
         private bool CanReturnEvent()
         {
             return !(
-                string.IsNullOrWhiteSpace(this.StateGuid.ToString()) ||
-                string.IsNullOrWhiteSpace(this.UserGuid.ToString())
+                string.IsNullOrWhiteSpace(this.StateGuid) ||
+                string.IsNullOrWhiteSpace(this.UserGuid)
             );
         }
 
         private bool CanSupplyEvent()
         {
             return !(
-                string.IsNullOrWhiteSpace(this.StateGuid.ToString()) ||
-                string.IsNullOrWhiteSpace(this.UserGuid.ToString())
+                string.IsNullOrWhiteSpace(this.StateGuid) ||
+                string.IsNullOrWhiteSpace(this.UserGuid)
             );
         }
 

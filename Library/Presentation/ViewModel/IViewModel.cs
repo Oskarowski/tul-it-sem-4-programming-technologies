@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace Presentation.ViewModel
 {
-    internal class IViewModel : INotifyPropertyChanged
+    public class IViewModel : INotifyPropertyChanged
     {
         public IViewModel? SelectedViewModel;
 

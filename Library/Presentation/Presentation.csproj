@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\AppLogo.jpg" />
+  </ItemGroup>
+		
+  <ItemGroup>
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 

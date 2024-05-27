@@ -9,5 +9,33 @@
         <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
             <views:HomeView/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewmodels:UserDetailViewModel}">
+            <views:UserDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:UserMasterViewModel}">
+            <views:UserMasterView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:ProductMasterViewModel}">
+            <views:ProductMasterView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:ProductDetailViewModel}">
+            <views:ProductDetailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:StateMasterViewModel}">
+            <views:StateMasterView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:StateDetailViewModel}">
+            <views:StateDetailView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodels:EventMasterViewModel}">
+            <views:EventMasterView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:EventDetailViewModel}">
+            <views:EventDetailView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

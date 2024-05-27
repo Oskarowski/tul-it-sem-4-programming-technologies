@@ -42,13 +42,13 @@ namespace Presentation.ViewModel
                             mainViewModel.SelectedViewModel = new UserMasterViewModel(); 
                             break;
                         case "ProductMasterView":
+                             mainViewModel.SelectedViewModel = new ProductMasterViewModel();
                             break;
-                            // mainViewModel.SelectedViewModel = new ProductMasterViewModel(); break;
                         case "StateMasterView":
+                            mainViewModel.SelectedViewModel = new StateMasterViewModel();
                             break;
-                            // mainViewModel.SelectedViewModel = new StateMasterViewModel(); break;
                         case "EventMasterView":
-                            // mainViewModel.SelectedViewModel = new EventMasterViewModel(); break;
+                            mainViewModel.SelectedViewModel = new EventMasterViewModel();
                             break;
                     }
                 }

@@ -130,7 +130,7 @@ namespace Presentation.ViewModel
         private bool CanStoreState()
         {
             return !(
-                string.IsNullOrWhiteSpace(this.ProductGuid.ToString()) ||
+                string.IsNullOrWhiteSpace(this.ProductGuid) ||
                 string.IsNullOrWhiteSpace(this.Quantity.ToString()) ||
                 this.Quantity < 0
             );
