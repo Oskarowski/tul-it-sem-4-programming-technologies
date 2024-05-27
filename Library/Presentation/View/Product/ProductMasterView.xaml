@@ -11,8 +11,7 @@
     <UserControl.DataContext>
         <ObjectDataProvider ObjectType="viewmodels:ProductMasterViewModel">
             <ObjectDataProvider.ConstructorParameters>
-                <x:Null/>
-                <x:Null/>
+              
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </UserControl.DataContext>
@@ -151,9 +150,9 @@
             </TextBox>
 
         </StackPanel>
-        <Button Content="Create" Margin="46,287,46,208" Background="CornflowerBlue"
+        <Button Content="Create" Margin="46,287,46,99" Background="CornflowerBlue"
                         Command="{Binding CreateProduct}" Grid.Column="1" Grid.Row="1"/>
-        <Label Margin="0,20,0,403"
+        <Label Margin="0,20,0,506"
                        HorizontalAlignment="Center"
                        Content="Products:" FontSize="15" Width="140" Grid.Column="1" Grid.RowSpan="2"/>
 
