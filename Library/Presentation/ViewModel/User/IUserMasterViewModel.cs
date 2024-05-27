@@ -33,6 +33,8 @@ namespace Presentationion.ViewModel
 
         double Balance { get; set; }
 
+        string PhoneNumber { get; set; }
+
         bool IsUserSelected { get; set; }
 
         Visibility IsUserDetailVisible { get; set; }

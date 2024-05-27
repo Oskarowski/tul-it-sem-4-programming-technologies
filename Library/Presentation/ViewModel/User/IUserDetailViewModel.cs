@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Presentation.ViewModel
 {
@@ -13,6 +14,8 @@ namespace Presentation.ViewModel
         {
             return new UserDetailViewModel(guid, firstName, lastName, email, balance, phoneNumber, model, informer);
         }
+
+        ICommand UpdateUser { get; set;}
 
         string Guid { get; set; }
         string FirstName { get; set; }

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayerTests", "DataLayer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Library\Service\Service.csproj", "{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayerTests", "Library\PresentationLayerTests\PresentationLayerTests.csproj", "{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{0AB5386A-930A-4A24-A6E5-ED00D8E5355E} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 		{66C9D42F-4CBD-474F-B4FB-5FDFAB58C2A1} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 		{AD1B47F1-3FB2-41A7-9C6C-41F294FF835E} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
+		{D30BB53A-B80E-45CF-B3F1-B8C39A8C849D} = {B858A003-F5DD-4F95-99D9-5A7560A0B8CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B8DC2F37-8FC7-433C-BA78-56CAE077B47B}
