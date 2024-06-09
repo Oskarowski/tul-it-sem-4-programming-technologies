@@ -10,9 +10,9 @@ namespace Presentation.ViewModel
 {
     public interface IUserDetailViewModel
     {
-        static IUserDetailViewModel CreateViewModel(string guid, string firstName, string lastName, string email, double balance, string phoneNumber, IUserModelOperation model, IErrorInformer informer)
+        static IUserDetailViewModel CreateViewModel(string guid, string firstName, string lastName, string email, double balance, string phoneNumber, IUserModelOperation model)
         {
-            return new UserDetailViewModel(guid, firstName, lastName, email, balance, phoneNumber, model, informer);
+            return new UserDetailViewModel(guid, firstName, lastName, email, balance, phoneNumber, model);
         }
 
         ICommand UpdateUser { get; set;}

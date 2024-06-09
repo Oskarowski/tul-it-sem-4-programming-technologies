@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Presentation;
-using Presentation.ViewModel;
 
-namespace Presentationion.ViewModel
+namespace Presentation.ViewModel
 {
     public interface IUserMasterViewModel
     {
-        static IUserMasterViewModel CreateViewModel(IUserModelOperation operation, IErrorInformer informer)
+        static IUserMasterViewModel CreateViewModel(IUserModelOperation operation)
         {
-            return new UserMasterViewModel(operation, informer);
+            return new UserMasterViewModel(operation);
         }
 
         ICommand CreateUser { get; set; }

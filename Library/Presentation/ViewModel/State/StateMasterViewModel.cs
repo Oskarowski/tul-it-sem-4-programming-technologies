@@ -20,8 +20,6 @@ namespace Presentation.ViewModel
 
         private readonly IStateModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private ObservableCollection<IStateDetailViewModel> _states;
 
         public ObservableCollection<IStateDetailViewModel> States
@@ -108,7 +106,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public StateMasterViewModel(IStateModelOperation? model = null, IErrorInformer? informer = null)
+        public StateMasterViewModel(IStateModelOperation? model = null)
         {
             this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
             this.SwitchToProductMasterPage = new SwitchViewCommand("ProductMasterView");
@@ -120,7 +118,6 @@ namespace Presentation.ViewModel
             this.States = new ObservableCollection<IStateDetailViewModel>();
 
             this._modelOperation = IStateModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
 
             this.IsStateSelected = false;
 
@@ -147,12 +144,10 @@ namespace Presentation.ViewModel
                     await this._modelOperation.AddAsync(guid, this.ProductGuid, this.Quantity);
 
                     this.LoadStates();
-
-                    this._informer.InformSuccess("State successfully created!");
                 }
                 catch (Exception e)
                 {
-                    this._informer.InformError(e.Message);
+
                 }
             });
         }
@@ -166,12 +161,10 @@ namespace Presentation.ViewModel
                     await this._modelOperation.DeleteAsync(this.SelectedDetailViewModel.Guid);
 
                     this.LoadStates();
-
-                    this._informer.InformSuccess("State successfully deleted!");
                 }
                 catch (Exception e)
                 {
-                    this._informer.InformError("Error while deleting state!");
+
                 }
             });
         }

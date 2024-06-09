@@ -1,4 +1,4 @@
-﻿using Presentation.Model.Implementation;
+﻿using Presentation.Model;
 using Service.API;
 using Service.Implementation;
 

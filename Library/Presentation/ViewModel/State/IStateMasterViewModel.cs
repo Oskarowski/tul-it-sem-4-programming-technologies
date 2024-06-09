@@ -7,9 +7,9 @@ namespace Presentation.ViewModel
 {
     public interface IStateMasterViewModel
     {
-        static IStateMasterViewModel CreateViewModel(IStateModelOperation operation, IErrorInformer informer)
+        static IStateMasterViewModel CreateViewModel(IStateModelOperation operation)
         {
-            return new StateMasterViewModel(operation, informer);
+            return new StateMasterViewModel(operation);
         }
 
         public ICommand CreateState { get; set; }

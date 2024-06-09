@@ -13,9 +13,9 @@ namespace Presentation.ViewModel
 {
     public interface IEventMasterViewModel
     {
-        static IEventMasterViewModel CreateViewModel(IEventModelOperation operation, IErrorInformer informer)
+        static IEventMasterViewModel CreateViewModel(IEventModelOperation operation)
         {
-            return new EventMasterViewModel(operation, informer);
+            return new EventMasterViewModel(operation);
         }
 
         ICommand PurchaseEvent { get; set; }

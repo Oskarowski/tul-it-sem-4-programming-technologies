@@ -10,8 +10,6 @@ namespace Presentation.ViewModel
 
         private readonly IProductModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private string _guid;
         private string _name;
         private double _price;
@@ -90,15 +88,14 @@ namespace Presentation.ViewModel
             }
         }
 
-        public ProductDetailViewModel(IProductModelOperation? model = null, IErrorInformer? informer = null)
+        public ProductDetailViewModel(IProductModelOperation? model = null)
         {
             this.UpdateProduct = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
-        public ProductDetailViewModel(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate, IProductModelOperation? model = null, IErrorInformer? informer = null)
+        public ProductDetailViewModel(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate, IProductModelOperation? model = null)
         {
             Guid = guid;
             Name = name;
@@ -110,17 +107,13 @@ namespace Presentation.ViewModel
 
             this.UpdateProduct = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
-            this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
-        }
+            this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();        }
 
         private void Update()
         {
             Task.Run(() =>
             {
                 this._modelOperation.UpdateAsync(this.Guid, this.Name, this.Price, this.Author, this.Publisher, this.Pages, this.PublicationDate);
-
-                this._informer.InformSuccess("Product successfully updated!");
             });
         }
 

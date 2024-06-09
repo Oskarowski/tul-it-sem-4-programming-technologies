@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
-using Presentationion.ViewModel;
+using Presentation.ViewModel;
 
 namespace Presentation.ViewModel
 {
@@ -19,8 +19,6 @@ namespace Presentation.ViewModel
         public ICommand RemoveUser { get; set; }
 
         private readonly IUserModelOperation _modelOperation;
-
-        private readonly IErrorInformer _informer;
 
         private ObservableCollection<IUserDetailViewModel> _users;
 
@@ -131,7 +129,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public UserMasterViewModel(IUserModelOperation? model = null, IErrorInformer? informer = null)
+        public UserMasterViewModel(IUserModelOperation? model = null)
         {
             this.SwitchToProductMasterPage = new SwitchViewCommand("ProductMasterView");
             this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
@@ -143,7 +141,6 @@ namespace Presentation.ViewModel
             this.Users = new ObservableCollection<IUserDetailViewModel>();
 
             this._modelOperation = model ?? IUserModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
 
             this.IsUserSelected = false;
 
@@ -170,8 +167,6 @@ namespace Presentation.ViewModel
 
                 await this._modelOperation.AddAsync(guid, this.FirstName, this.LastName, this.Email, this.Balance, this.PhoneNumber);
 
-                this._informer.InformSuccess("User successfully created!");
-
                 this.LoadUsers();
             });
         }
@@ -184,13 +179,11 @@ namespace Presentation.ViewModel
                 {
                     await this._modelOperation.DeleteAsync(this.SelectedDetailViewModel.Guid);
 
-                    this._informer.InformSuccess("User successfully deleted!");
-
                     this.LoadUsers();
                 }
                 catch (Exception e)
                 {
-                    this._informer.InformError("Error while deleting user!");
+
                 }
             });
         }

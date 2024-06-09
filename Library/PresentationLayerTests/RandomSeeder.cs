@@ -1,7 +1,6 @@
 ﻿using Presentation.Model.API;
 using Presentation.ViewModel;
 using Presentation;
-using Presentationion.ViewModel;
 using PresentationLayerTests.MockClasses;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,7 @@ using System.Threading.Tasks;
 namespace PresentationLayerTests
 {
     internal class RandomSeeder : ISeeder
-    {
-        private IErrorInformer _informer = new MockErrorInformer();
-
+    { 
         public void GenerateUserModels(IUserMasterViewModel viewModel)
         {
             IUserModelOperation operation = IUserModelOperation.CreateModelOperation(new MockUserCRUD());
@@ -23,7 +20,7 @@ namespace PresentationLayerTests
             {
                 viewModel.Users.Add(IUserDetailViewModel.CreateViewModel(i.ToString(), RandomString(10), RandomString(10),
                                     RandomString(10) + "@" + RandomString(10), RandomNumber(1, 101), RandomPhoneNumber(),
-                                    operation, _informer));
+                                    operation));
             }
         }
 
@@ -33,7 +30,7 @@ namespace PresentationLayerTests
 
             for (int i = 0; i < 5; i++)
             {
-                viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(i.ToString(), RandomString(10), RandomNumber(1, 101), RandomString(10), RandomString(10), RandomNumber(1, 101), RandomDateTime(), operation, _informer));
+                viewModel.Products.Add(IProductDetailViewModel.CreateViewModel(i.ToString(), RandomString(10), RandomNumber(1, 101), RandomString(10), RandomString(10), RandomNumber(1, 101), RandomDateTime(), operation));
             }
         }
 
@@ -43,7 +40,7 @@ namespace PresentationLayerTests
 
             for (int i = 0; i < 5; i++)
             {
-                viewModel.States.Add(IStateDetailViewModel.CreateViewModel(i.ToString(), i.ToString(), RandomNumber(1, 101), operation, _informer));
+                viewModel.States.Add(IStateDetailViewModel.CreateViewModel(i.ToString(), i.ToString(), RandomNumber(1, 101), operation));
             }
         }
 
@@ -53,7 +50,7 @@ namespace PresentationLayerTests
 
             for (int i = 0; i < 5; i++)
             {
-                viewModel.Events.Add(IEventDetailViewModel.CreateViewModel(i.ToString(), i.ToString(), i.ToString(), DateTime.Now, "Delivery", operation, _informer));
+                viewModel.Events.Add(IEventDetailViewModel.CreateViewModel(i.ToString(), i.ToString(), i.ToString(), DateTime.Now, "Delivery", operation));
             }
         }
 

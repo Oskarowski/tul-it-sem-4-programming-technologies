@@ -5,9 +5,9 @@ namespace Presentation.ViewModel
 {
     public interface IProductDetailViewModel
     {
-        static IProductDetailViewModel CreateViewModel(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate, IProductModelOperation model, IErrorInformer informer)
+        static IProductDetailViewModel CreateViewModel(string guid, string name, double price, string author, string publisher, int pages, DateTime publicationDate, IProductModelOperation model)
         {
-            return new ProductDetailViewModel(guid, name, price, author, publisher, pages, publicationDate, model, informer);
+            return new ProductDetailViewModel(guid, name, price, author, publisher, pages, publicationDate, model);
         }
 
         ICommand UpdateProduct { get; set; }

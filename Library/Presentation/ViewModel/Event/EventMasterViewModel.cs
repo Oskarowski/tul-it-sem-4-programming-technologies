@@ -29,8 +29,6 @@ namespace Presentation.ViewModel
 
         private readonly IEventModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private ObservableCollection<IEventDetailViewModel> _events;
 
         public ObservableCollection<IEventDetailViewModel> Events
@@ -106,7 +104,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public EventMasterViewModel(IEventModelOperation? model = null, IErrorInformer? informer = null)
+        public EventMasterViewModel(IEventModelOperation? model = null)
         {
             this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
             this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
@@ -120,7 +118,6 @@ namespace Presentation.ViewModel
             this.Events = new ObservableCollection<IEventDetailViewModel>();
 
             this._modelOperation = IEventModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
 
             this.IsEventSelected = false;
 
@@ -162,12 +159,10 @@ namespace Presentation.ViewModel
                     await this._modelOperation.AddAsync(guid, this.StateGuid, this.UserGuid, DateTime.Now, "RentEvent");
 
                     this.LoadEvents();
-
-                    this._informer.InformSuccess("Event successfully created!");
                 }
                 catch (Exception e)
                 {
-                    this._informer.InformError(e.Message);
+
                 }
             });
         }
@@ -181,8 +176,6 @@ namespace Presentation.ViewModel
                 await this._modelOperation.AddAsync(guid, this.StateGuid, this.UserGuid, DateTime.Now, "ReturnEvent");
 
                 this.LoadEvents();
-
-                this._informer.InformSuccess("Event successfully created!");
             });
         }
 
@@ -195,8 +188,6 @@ namespace Presentation.ViewModel
                 await this._modelOperation.AddAsync(guid, this.StateGuid, this.UserGuid, DateTime.Now, "SupplyEvent");
 
                 this.LoadEvents();
-
-                this._informer.InformSuccess("Event successfully created!");
             });
         }
 
@@ -207,8 +198,6 @@ namespace Presentation.ViewModel
                 await this._modelOperation.DeleteAsync(this.SelectedDetailViewModel.Guid);
 
                 this.LoadEvents();
-
-                this._informer.InformSuccess("Event successfully deleted!");
             });
         }
 

@@ -7,9 +7,9 @@ namespace Presentation.ViewModel
 {
     public interface IEventDetailViewModel
     {
-        static IEventDetailViewModel CreateViewModel(string guid, string stateGuid, string userGuid, DateTime CreatedAt, string type, IEventModelOperation model, IErrorInformer informer)
+        static IEventDetailViewModel CreateViewModel(string guid, string stateGuid, string userGuid, DateTime CreatedAt, string type, IEventModelOperation model)
         {
-            return new EventDetailViewModel(guid, stateGuid, userGuid, CreatedAt, type, model, informer);
+            return new EventDetailViewModel(guid, stateGuid, userGuid, CreatedAt, type, model);
         }
 
         ICommand UpdateEvent { get; set; }

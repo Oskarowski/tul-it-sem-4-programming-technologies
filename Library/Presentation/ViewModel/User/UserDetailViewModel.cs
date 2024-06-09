@@ -9,7 +9,6 @@ namespace Presentation.ViewModel
         public ICommand UpdateUser { get; set; }
 
         private readonly IUserModelOperation _modelOperation;
-        private readonly IErrorInformer _informer;
 
         private string? _guid;
         private string? _firstName;
@@ -80,15 +79,14 @@ namespace Presentation.ViewModel
             }
         }
 
-        public UserDetailViewModel(IUserModelOperation? model = null, IErrorInformer? informer = null)
+        public UserDetailViewModel(IUserModelOperation? model = null)
         {
             this.UpdateUser = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = model ?? IUserModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
-        public UserDetailViewModel(string guid, string firstName, string lastName, string email, double balance, string phoneNumber, IUserModelOperation? model = null, IErrorInformer? informer = null)
+        public UserDetailViewModel(string guid, string firstName, string lastName, string email, double balance, string phoneNumber, IUserModelOperation? model = null)
         {
             this.Guid = guid;
             this.FirstName = firstName;
@@ -100,7 +98,6 @@ namespace Presentation.ViewModel
             this.UpdateUser = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = model ?? IUserModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
         private void Update()
@@ -108,8 +105,6 @@ namespace Presentation.ViewModel
             Task.Run(() =>
             {
                 this._modelOperation.UpdateAsync(this.Guid, this.FirstName, this.LastName, this.Email, this.Balance, this.PhoneNumber);
-
-                this._informer.InformSuccess("User successfully updated!");
             });
         }
 

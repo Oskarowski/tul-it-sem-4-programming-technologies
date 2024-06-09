@@ -1,7 +1,6 @@
 ﻿using Presentation;
 using Presentation.Model.API;
 using Presentation.ViewModel;
-using Presentationion.ViewModel;
 using PresentationLayerTests.MockClasses;
 using Service.API;
 using System;
@@ -15,14 +14,12 @@ namespace PresentationLayerTests
     [TestClass]
     public class PresentationLayerTests
     {
-        private readonly IErrorInformer _informer = new MockErrorInformer();
-
         [TestMethod]
         public void UserMasterViewModelTest()
         {
             IUserCRUD fakeUserCrud = new MockUserCRUD();
             IUserModelOperation operation = IUserModelOperation.CreateModelOperation(fakeUserCrud);
-            IUserMasterViewModel viewModel = IUserMasterViewModel.CreateViewModel(operation, _informer);
+            IUserMasterViewModel viewModel = IUserMasterViewModel.CreateViewModel(operation);
 
             viewModel.FirstName = "Alice";
             viewModel.LastName = "Jane";
@@ -41,7 +38,7 @@ namespace PresentationLayerTests
         {
             IUserCRUD mockUserCrud = new MockUserCRUD();
             IUserModelOperation operation = IUserModelOperation.CreateModelOperation(mockUserCrud);
-            IUserDetailViewModel viewModel = IUserDetailViewModel.CreateViewModel("1", "Alice", "Jane", "Test@test.mail", 100, "123456789", operation, _informer);
+            IUserDetailViewModel viewModel = IUserDetailViewModel.CreateViewModel("1", "Alice", "Jane", "Test@test.mail", 100, "123456789", operation);
             
             Assert.AreEqual("1", viewModel.Guid);
             Assert.AreEqual("Alice", viewModel.FirstName);
@@ -57,7 +54,7 @@ namespace PresentationLayerTests
         {
             IProductCRUD mockProductCrud = new MockProductCRUD();
             IProductModelOperation operation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductMasterViewModel viewModel = IProductMasterViewModel.CreateViewModel(operation, _informer);
+            IProductMasterViewModel viewModel = IProductMasterViewModel.CreateViewModel(operation);
 
             viewModel.Name = "Product";
             viewModel.Price = 100;
@@ -77,7 +74,7 @@ namespace PresentationLayerTests
         {
             IProductCRUD mockProductCrud = new MockProductCRUD();
             IProductModelOperation operation = IProductModelOperation.CreateModelOperation(mockProductCrud);
-            IProductDetailViewModel viewModel = IProductDetailViewModel.CreateViewModel("1", "Product", 100, "Author", "Publisher", 100, new DateTime(2020,12,12), operation, _informer);
+            IProductDetailViewModel viewModel = IProductDetailViewModel.CreateViewModel("1", "Product", 100, "Author", "Publisher", 100, new DateTime(2020,12,12), operation);
 
             Assert.AreEqual("1", viewModel.Guid);
             Assert.AreEqual("Product", viewModel.Name);
@@ -94,7 +91,7 @@ namespace PresentationLayerTests
         {
             IStateCRUD mockStateCrud = new MockStateCRUD();
             IStateModelOperation operation = IStateModelOperation.CreateModelOperation(mockStateCrud);
-            IStateMasterViewModel viewModel = IStateMasterViewModel.CreateViewModel(operation, _informer);
+            IStateMasterViewModel viewModel = IStateMasterViewModel.CreateViewModel(operation);  
 
             viewModel.ProductGuid = "1";
             viewModel.Quantity = 10;
@@ -110,7 +107,7 @@ namespace PresentationLayerTests
         {
             IStateCRUD mockStateCrud = new MockStateCRUD();
             IStateModelOperation operation = IStateModelOperation.CreateModelOperation(mockStateCrud);
-            IStateDetailViewModel viewModel = IStateDetailViewModel.CreateViewModel("1", "1", 10, operation, _informer);
+            IStateDetailViewModel viewModel = IStateDetailViewModel.CreateViewModel("1", "1", 10, operation);
 
             Assert.AreEqual("1", viewModel.Guid);
             Assert.AreEqual("1", viewModel.ProductGuid);
@@ -123,7 +120,7 @@ namespace PresentationLayerTests
         {
             IEventCRUD mockEventCrud = new MockEventCRUD();
             IEventModelOperation operation = IEventModelOperation.CreateModelOperation(mockEventCrud);
-            IEventMasterViewModel viewModel = IEventMasterViewModel.CreateViewModel(operation, _informer);
+            IEventMasterViewModel viewModel = IEventMasterViewModel.CreateViewModel(operation);
 
             viewModel.StateGuid = "1";
             viewModel.UserGuid = "1";
@@ -143,7 +140,7 @@ namespace PresentationLayerTests
         {
             IEventCRUD mockEventCrud = new MockEventCRUD();
             IEventModelOperation operation = IEventModelOperation.CreateModelOperation(mockEventCrud);
-            IEventDetailViewModel viewModel = IEventDetailViewModel.CreateViewModel("1", "1", "1", new DateTime(2020,12,12), "Delivery", operation, _informer);
+            IEventDetailViewModel viewModel = IEventDetailViewModel.CreateViewModel("1", "1", "1", new DateTime(2020,12,12), "Delivery", operation);
 
             Assert.AreEqual("1", viewModel.Guid);
             Assert.AreEqual("1", viewModel.StateGuid);
