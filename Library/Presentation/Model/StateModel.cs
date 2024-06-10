@@ -2,7 +2,7 @@
 using System;
 
 
-namespace Presentation.Model.Implementation
+namespace Presentation.Model
 {
     internal class StateModel : IStateModel
     {

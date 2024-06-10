@@ -12,9 +12,9 @@ namespace Presentation.ViewModel
 {
     public interface IProductMasterViewModel
     {
-        static IProductMasterViewModel CreateViewModel(IProductModelOperation operation, IErrorInformer informer)
+        static IProductMasterViewModel CreateViewModel(IProductModelOperation operation)
         {
-            return new ProductMasterViewModel(operation, informer);
+            return new ProductMasterViewModel(operation);
         }
 
         ICommand CreateProduct { get; set; }

@@ -12,7 +12,6 @@
         <ObjectDataProvider ObjectType="viewmodels:EventMasterViewModel">
             <ObjectDataProvider.ConstructorParameters>
                 <x:Null/>
-                <x:Null/>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </UserControl.DataContext>

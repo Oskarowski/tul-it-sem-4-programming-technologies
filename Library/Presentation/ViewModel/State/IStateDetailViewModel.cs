@@ -7,9 +7,9 @@ namespace Presentation.ViewModel
 {
     public interface IStateDetailViewModel
     {
-        static IStateDetailViewModel CreateViewModel(string guid, string productGuid, int quantity, IStateModelOperation model, IErrorInformer informer)
+        static IStateDetailViewModel CreateViewModel(string guid, string productGuid, int quantity, IStateModelOperation model)
         {
-            return new StateDetailViewModel(guid, productGuid, quantity, model, informer);
+            return new StateDetailViewModel(guid, productGuid, quantity, model);
         }
 
         ICommand UpdateState { get; set; }

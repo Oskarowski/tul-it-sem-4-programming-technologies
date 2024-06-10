@@ -1,6 +1,4 @@
-﻿using Presentation.Model.Implementation;
-using Service.API;
-using Service.Implementation;
+﻿using Service.API;
 
 namespace Presentation.Model.API
 {

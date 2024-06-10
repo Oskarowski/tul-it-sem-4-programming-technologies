@@ -20,8 +20,6 @@ namespace Presentation.ViewModel
 
         private readonly IProductModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private ObservableCollection<IProductDetailViewModel> _products;
 
         public ObservableCollection<IProductDetailViewModel> Products
@@ -141,7 +139,7 @@ namespace Presentation.ViewModel
             }
         }
 
-        public ProductMasterViewModel(IProductModelOperation? model = null, IErrorInformer? informer = null)
+        public ProductMasterViewModel(IProductModelOperation? model = null)
         {
             this.SwitchToUserMasterPage = new SwitchViewCommand("UserMasterView");
             this.SwitchToStateMasterPage = new SwitchViewCommand("StateMasterView");
@@ -153,7 +151,6 @@ namespace Presentation.ViewModel
             this.Products = new ObservableCollection<IProductDetailViewModel>();
 
             this._modelOperation = model ?? IProductModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
 
             this.IsProductSelected = false;
 
@@ -184,8 +181,6 @@ namespace Presentation.ViewModel
 
                 this.LoadProducts();
 
-                this._informer.InformSuccess("Product added successfully!");
-
             });
         }
 
@@ -198,12 +193,10 @@ namespace Presentation.ViewModel
                     await this._modelOperation.DeleteAsync(this.SelectedDetailViewModel.Guid);
 
                     this.LoadProducts();
-
-                    this._informer.InformSuccess("Product deleted successfully!");
                 }
                 catch (Exception e)
                 {
-                    this._informer.InformError("Error while deleting product!");
+
                 }
             });
         }

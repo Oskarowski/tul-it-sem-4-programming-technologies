@@ -3,7 +3,7 @@ using Presentation.Model.API;
 using Service.API;
 
 
-namespace Presentation.Model.Implementation
+namespace Presentation.Model
 {
     internal class EventModelOperation : IEventModelOperation
     {

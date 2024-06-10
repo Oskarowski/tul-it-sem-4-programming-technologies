@@ -15,8 +15,6 @@ namespace Presentation.ViewModel
 
         private readonly IEventModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private string _guid;
         private string _stateGuid;
         private string _userGuid;
@@ -85,20 +83,18 @@ namespace Presentation.ViewModel
             }
         }
 
-        public EventDetailViewModel(IEventModelOperation? model = null, IErrorInformer? informer = null)
+        public EventDetailViewModel(IEventModelOperation? model = null)
         {
             this.UpdateEvent = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = IEventModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
-        public EventDetailViewModel(string guid, string stateGuid, string userGuid, DateTime createdAt, string type, IEventModelOperation? model = null, IErrorInformer? informer = null)
+        public EventDetailViewModel(string guid, string stateGuid, string userGuid, DateTime createdAt, string type, IEventModelOperation? model = null)
         {
             this.UpdateEvent = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = IEventModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
 
             this.Guid = guid;
             this.StateGuid = stateGuid;
@@ -112,8 +108,6 @@ namespace Presentation.ViewModel
             Task.Run(async () =>
             {
                 await this._modelOperation.UpdateAsync(this.Guid, this.StateGuid, this.UserGuid, this.OccurrenceDate, this.Type);
-
-                this._informer.InformSuccess("Event successfully updated!");
             });
         }
 

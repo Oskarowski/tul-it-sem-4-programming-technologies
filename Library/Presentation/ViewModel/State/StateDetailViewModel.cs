@@ -10,8 +10,6 @@ namespace Presentation.ViewModel
 
         private readonly IStateModelOperation _modelOperation;
 
-        private readonly IErrorInformer _informer;
-
         private string _guid;
         private string _productGuid;
         private int _quantity;
@@ -46,15 +44,14 @@ namespace Presentation.ViewModel
             }
         }
 
-        public StateDetailViewModel(IStateModelOperation? model = null, IErrorInformer? informer = null)
+        public StateDetailViewModel(IStateModelOperation? model = null)
         {
             this.UpdateState = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = IStateModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
-        public StateDetailViewModel(string guid, string productGuid, int quantity, IStateModelOperation? model = null, IErrorInformer? informer = null)
+        public StateDetailViewModel(string guid, string productGuid, int quantity, IStateModelOperation? model = null)
         {
             this.Guid = guid;
             this.ProductGuid = productGuid;
@@ -63,7 +60,6 @@ namespace Presentation.ViewModel
             this.UpdateState = new OnClickCommand(e => this.Update(), c => this.CanUpdate());
 
             this._modelOperation = IStateModelOperation.CreateModelOperation();
-            this._informer = informer ?? new PopupErrorInformer();
         }
 
         private void Update()
@@ -71,8 +67,6 @@ namespace Presentation.ViewModel
             Task.Run(() =>
             {
                 this._modelOperation.UpdateAsync(this.Guid, this.ProductGuid, this.Quantity);
-
-                this._informer.InformSuccess("State successfully updated!");
             });
         }
 
