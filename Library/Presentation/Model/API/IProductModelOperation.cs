@@ -1,5 +1,4 @@
-﻿using Presentation.Model;
-using Service.API;
+﻿using Service.API;
 
 namespace Presentation.Model.API
 {
