@@ -65,7 +65,24 @@ namespace DataLayer.Implementations
             }
         }
 
-        public async Task UpdateUserAsync(IUser user)
+        public async Task<IUser?> GetUserQueryAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.User? user = await Task.Run(() =>
+                {
+                    var query = from u in context.User
+                                where u.guid == guid
+                                select u;
+
+                    return query.FirstOrDefault();
+                });
+
+                return user is not null ? new User(user.guid, user.firstName, user.lastName, user.email, user.balance, user.phoneNumber) : null;
+            }
+        }
+
+            public async Task UpdateUserAsync(IUser user)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
             {
@@ -93,6 +110,18 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task DeleteUserMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.User toDelete = context.User.FirstOrDefault(u => u.guid == guid)!;
+
+                context.User.DeleteOnSubmit(toDelete);
+
+                await Task.Run(() => context.SubmitChanges());
+            }
+        }
+
         public async Task<Dictionary<string, IUser>> GetAllUsersAsync()
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -105,11 +134,33 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task<Dictionary<string, IUser>> GetAllUsersMethodAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                IQueryable<IUser> usersQuery = context.User
+                    .Select(u => new User(u.guid, u.firstName, u.lastName, u.email, u.balance, u.phoneNumber) as IUser);
+
+                return await Task.Run(() => usersQuery.ToDictionary(k => k.Guid));
+            }
+        }
+
         public async Task<int> GetUsersCountAsync()
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
             {
                 return await Task.Run(() => context.User.Count());
+            }
+        }
+
+        public async Task<int> GetUsersCountQueryAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                var userCountQuery = from u in context.User
+                                     select u;
+
+                return await Task.Run(() => userCountQuery.Count());
             }
         }
 
@@ -157,6 +208,19 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task<IBook?> GetProductMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Book? product = await Task.Run(() =>
+                {
+                    return context.Book.FirstOrDefault(p => p.guid == guid);
+                });
+
+                return product is not null ? new Book(product.guid, product.name, (double)product.price, product.author, product.publisher, product.pages, product.publicationDate) : null;
+            }
+        }
+
         public async Task UpdateProductAsync(IBook product)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -176,6 +240,26 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task UpdateProductMethodAsync(IBook product)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Book toUpdate = context.Book.FirstOrDefault(p => p.guid == product.Guid)!;
+
+                if (toUpdate != null)
+                {
+                    toUpdate.name = product.Name;
+                    toUpdate.price = product.Price;
+                    toUpdate.author = product.Author;
+                    toUpdate.publisher = product.Publisher;
+                    toUpdate.pages = product.Pages;
+                    toUpdate.publicationDate = product.PublicationDate;
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
+            }
+        }
+
         public async Task DeleteProductAsync(string guid)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -188,6 +272,21 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task DeleteProductMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Book toDelete = context.Book.FirstOrDefault(p => p.guid == guid)!;
+
+                if (toDelete != null)
+                {
+                    context.Book.DeleteOnSubmit(toDelete);
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
+            }
+        }
+
         public async Task<Dictionary<string, IBook>> GetAllProductsAsync()
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -195,6 +294,17 @@ namespace DataLayer.Implementations
                 IQueryable<IBook> productQuery = from p in context.Book
                                                     select
                                                         new Book(p.guid, p.name, (double)p.price, p.author, p.publisher, p.pages, p.publicationDate) as IBook;
+
+                return await Task.Run(() => productQuery.ToDictionary(k => k.Guid));
+            }
+        }
+
+        public async Task<Dictionary<string, IBook>> GetAllProductsMethodAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                IQueryable<IBook> productQuery = context.Book
+                    .Select(p => new Book(p.guid, p.name, (double)p.price, p.author, p.publisher, p.pages, p.publicationDate) as IBook);
 
                 return await Task.Run(() => productQuery.ToDictionary(k => k.Guid));
             }
@@ -248,6 +358,19 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task<IState?> GetStateMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.State? state = await Task.Run(() =>
+                {
+                    return context.State.FirstOrDefault(s => s.guid == guid);
+                });
+
+                return state is not null ? new State(state.guid, state.productGuid, state.quantity) : null;
+            }
+        }
+
         public async Task UpdateStateAsync(IState state)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -258,6 +381,22 @@ namespace DataLayer.Implementations
                 toUpdate.quantity = state.Quantity;
 
                 await Task.Run(() => context.SubmitChanges());
+            }
+        }
+
+        public async Task UpdateStateMethodAsync(IState state)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.State toUpdate = context.State.FirstOrDefault(s => s.guid == state.Guid)!;
+
+                if (toUpdate != null)
+                {
+                    toUpdate.productGuid = state.ProductGuid;
+                    toUpdate.quantity = state.Quantity;
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
             }
         }
 
@@ -273,6 +412,21 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task DeleteStateMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.State toDelete = context.State.FirstOrDefault(s => s.guid == guid)!;
+
+                if (toDelete != null)
+                {
+                    context.State.DeleteOnSubmit(toDelete);
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
+            }
+        }
+
         public async Task<Dictionary<string, IState>> GetAllStatesAsync()
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -280,6 +434,17 @@ namespace DataLayer.Implementations
                 IQueryable<IState> stateQuery = from s in context.State
                                                 select
                                                     new State(s.guid, s.productGuid, s.quantity) as IState;
+
+                return await Task.Run(() => stateQuery.ToDictionary(k => k.Guid));
+            }
+        }
+
+        public async Task<Dictionary<string, IState>> GetAllStatesMethodAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                IQueryable<IState> stateQuery = context.State
+                    .Select(s => new State(s.guid, s.productGuid, s.quantity) as IState);
 
                 return await Task.Run(() => stateQuery.ToDictionary(k => k.Guid));
             }
@@ -336,6 +501,19 @@ namespace DataLayer.Implementations
 
         }
 
+        public async Task<IEvent?> GetEventMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Event? even = await Task.Run(() =>
+                {
+                    return context.Event.FirstOrDefault(e => e.guid == guid);
+                });
+
+                return even is not null ? new Event(even.guid, even.stateGuid, even.userGuid, even.createdAt, even.type) : null;
+            }
+        }
+
         public async Task UpdateEventAsync(IEvent even)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -351,6 +529,24 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task UpdateEventMethodAsync(IEvent even)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Event toUpdate = context.Event.FirstOrDefault(e => e.guid == even.Guid)!;
+
+                if (toUpdate != null)
+                {
+                    toUpdate.stateGuid = even.StateGuid;
+                    toUpdate.userGuid = even.UserGuid;
+                    toUpdate.createdAt = even.CreatedAt;
+                    toUpdate.type = even.Type;
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
+            }
+        }
+
         public async Task DeleteEventAsync(string guid)
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
@@ -360,6 +556,21 @@ namespace DataLayer.Implementations
                 context.Event.DeleteOnSubmit(toDelete);
 
                 await Task.Run(() => context.SubmitChanges());
+            }
+        }
+
+        public async Task DeleteEventMethodAsync(string guid)
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                Database.Event toDelete = context.Event.FirstOrDefault(e => e.guid == guid)!;
+
+                if (toDelete != null)
+                {
+                    context.Event.DeleteOnSubmit(toDelete);
+
+                    await Task.Run(() => context.SubmitChanges());
+                }
             }
         }
 
@@ -375,11 +586,33 @@ namespace DataLayer.Implementations
             }
         }
 
+        public async Task<Dictionary<string, IEvent>> GetAllEventsMethodAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                IQueryable<IEvent> eventQuery = context.Event
+                    .Select(e => new Event(e.guid, e.stateGuid, e.userGuid, e.createdAt, e.type) as IEvent);
+
+                return await Task.Run(() => eventQuery.ToDictionary(k => k.Guid));
+            }
+        }
+
         public async Task<int> GetEventsCountAsync()
         {
             using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
             {
                 return await Task.Run(() => context.Event.Count());
+            }
+        }
+
+        public async Task<int> GetEventsCountQueryAsync()
+        {
+            using (LibraryDataClassesDataContext context = new LibraryDataClassesDataContext(_connectionString))
+            {
+                var eventCountQuery = from e in context.Event
+                                      select e;
+
+                return await Task.Run(() => eventCountQuery.Count());
             }
         }
 
